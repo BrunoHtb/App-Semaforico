@@ -28,6 +28,12 @@
                 <Entry
                     Text="Informe nome do usuário" />
 
+
+                <Button 
+                    Clicked="OnButtonClicked_To_Menu"
+                    Text="Entrar" />
+                
+                
             </StackLayout>
         </ScrollView>
     </VerticalStackLayout>

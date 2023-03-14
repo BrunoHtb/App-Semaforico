@@ -6,4 +6,9 @@ public partial class Menu : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void Clicked_To_ListaCadastro(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ListaCadastro());
+    }
 }
