@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cadastroSemaforico.Views.Login"
+             Title="Login">
+    <VerticalStackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Grid RowDefinitions="*, 20" ColumnDefinitions="*, 20" Background="#F6E120">
+                    <Image 
+                        Source="panel.svg" 
+                        Margin="20" 
+                        HorizontalOptions="Start" 
+                        Grid.Column="0" 
+                        Grid.Row="0"/>
+
+                </Grid>
+
+                <Label
+                    Text="ID Dispositivo" 
+                    FontSize="20"/>
+
+                <Entry
+                    Text="Informe o ID do Dispositivo" />
+
+                <Label
+                    Text="Nome usuário" />
+                <Entry
+                    Text="Informe nome do usuário" />
+
+            </StackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>
