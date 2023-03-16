@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:control="clr-namespace:Bertuzzi.MAUI.MaskedEntry;assembly=Bertuzzi.MAUI.MaskedEntry"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="cadastroSemaforico.Views.Cadastro"
@@ -9,25 +8,7 @@
         <ScrollView
             VerticalOptions="FillAndExpand">
             <Grid 
-                RowDefinitions="
-                90, 
-                90, 
-                90, 
-                90, 
-                90, 
-                90, 
-                90,
-                90, 
-                90, 
-                90, 
-                90,
-                90,
-                90,
-                90,
-                180,
-                200,
-                90,
-                180" 
+                RowDefinitions="90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 180, 200, 90, 180"
                 Margin="15">
                 
                 <!-- LINHA 1 -->
@@ -53,7 +34,7 @@
                         Grid.Row="0"
                         Grid.Column="1" />
                     <Picker
-                        x:Name="EntryDR"
+                        x:Name="PckDR"
                         Title="DR"
                         Grid.Row="1"
                         Grid.Column="1" >
@@ -78,7 +59,7 @@
                         FontAttributes="Bold"
                         VerticalOptions="End" />
                     <Picker
-                        x:Name="EntrySentido"
+                        x:Name="PckSentido"
                         Title="Sentido" >
                         <Picker.Items>
                             <x:String>Crescente</x:String>
@@ -120,7 +101,7 @@
                         Text="Atendimento a Norma"
                         FontAttributes="Bold" />
                     <Picker
-                        x:Name="AtendimentoNorma"
+                        x:Name="PckAtendimentoNorma"
                         Title="Atendimento a Norma">
                         <Picker.Items>
                             <x:String>E1 - Conforme</x:String>
@@ -153,7 +134,7 @@
                         Grid.Column="0" />
                     
                     <Entry
-                        x:Name="KM"
+                        x:Name="EntryKM"
                         Placeholder="KM"
                         Keyboard="Numeric"
                         Grid.Row="1"
@@ -263,7 +244,7 @@
                         Text="Estado de Conservação"
                         FontAttributes="Bold" />
                     <Picker
-                        x:Name="PckEstadoCons"
+                        x:Name="PckEstadoConservacao"
                         Title="Estado de conservação">
                         <Picker.Items>
                             <x:String>C1 - BOM ESTADO</x:String>
@@ -348,6 +329,7 @@
                         Margin="0,0,0,10" />
 
                     <Button
+                        Clicked="OnClick_To_GetCoordinates"
                         Text="Capturar Coordenada"
                         TextColor="#000000"
                         FontAttributes="Bold"
@@ -417,6 +399,7 @@
                     ColumnDefinitions="*, *, *">
 
                     <Button
+                        Clicked="OnClick_To_Save"
                         Text="Salvar"
                         FontAttributes="Bold"
                         Grid.Column="0"
