@@ -346,6 +346,7 @@
                     Margin="0, 35, 0, 0" >
 
                     <Button
+                        Clicked="OnClick_To_GetPhoto"
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
                         Text="Foto Panorâmica"             
