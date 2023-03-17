@@ -1,14 +1,17 @@
 using cadastroSemaforico.Database;
 using cadastroSemaforico.Models;
-
+using Mopups.Services;
+using Xamarin.Essentials;
 namespace cadastroSemaforico.Views;
 
 public partial class Cadastro : ContentPage
 {
+    IGeolocation _geolocation;
     private string nomeFotoPanoramica = "";
     private string nomeFotoDetalhe1 = "";
     private string nomeFotoDetalhe2 = "";
     private string codigo = "";
+
     public Cadastro()
 	{
 		InitializeComponent();
@@ -49,8 +52,23 @@ public partial class Cadastro : ContentPage
         //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
     }
 
-    private void OnClick_To_GetCoordinates(object sender, EventArgs e)
+    private async void OnClick_To_GetCoordinates(object sender, EventArgs e)
     {
+        var location = await Xamarin.Essentials.Geolocation.GetLocationAsync();
 
+        if (location != null)
+        {
+            await DisplayAlert("Problema com as Coordenadas", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "OK");
+        }
+        else
+        {
+            EntryLatitude.Text = location.Latitude.ToString();
+            EntryLongitude.Text = location.Longitude.ToString();
+        }
+    }
+
+    private void OnClick_To_GetPhoto(object sender, EventArgs e)
+    {
+        MopupService.Instance.PushAsync(new PopupFoto(), true);
     }
 }

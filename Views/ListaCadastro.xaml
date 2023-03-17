@@ -4,12 +4,33 @@
              x:Class="cadastroSemaforico.Views.ListaCadastro"
              Title="ListaCadastro">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
+        
+        <CollectionView x:Name="CVListaCadastro">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,4*">
+                        <CheckBox />
+                        <Label
+                            Grid.Column="1">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Rodovia}" />
+                                    <Span Text="{Binding Regional}" />
+                                    <Span Text="{Binding Sentido}" />
+                                    <Span Text="{Binding LadoPista}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout Margin="0, 500, 0, 0">
+            <Button
             Clicked="OnButtonClicked_To_Cadastro"
             />
+        </StackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>
