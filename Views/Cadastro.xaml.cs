@@ -1,12 +1,16 @@
-using cadastroSemaforico.Database;
+﻿using cadastroSemaforico.Database;
 using cadastroSemaforico.Models;
 using Mopups.Services;
-using Xamarin.Essentials;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Location = Microsoft.Maui.Devices.Sensors.Location;
+
 namespace cadastroSemaforico.Views;
 
 public partial class Cadastro : ContentPage
 {
-    IGeolocation _geolocation;
+    CancellationTokenSource _cancelTokenSource;
+    bool _isCheckingLocation;
     private string nomeFotoPanoramica = "";
     private string nomeFotoDetalhe1 = "";
     private string nomeFotoDetalhe2 = "";
@@ -44,7 +48,7 @@ public partial class Cadastro : ContentPage
         cadastroSemaforico.FotoDetalhe2 = nomeFotoDetalhe2;
         cadastroSemaforico.CodigoElemento = codigo;
 
-        //TODO - Valida��o dos dados
+        //TODO - Validação dos dados
 
         //TODO - Salvar a Tarefa no Banco
         await new CadastroDB().CadastrarAsync(cadastroSemaforico);
@@ -54,21 +58,92 @@ public partial class Cadastro : ContentPage
 
     private async void OnClick_To_GetCoordinates(object sender, EventArgs e)
     {
-        var location = await Xamarin.Essentials.Geolocation.GetLocationAsync();
-
-        if (location != null)
+        try
         {
-            await DisplayAlert("Problema com as Coordenadas", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "OK");
+            _isCheckingLocation = true;
+
+            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+
+            _cancelTokenSource = new CancellationTokenSource();
+
+            Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+
+            EntryLatitude.Text = location.Latitude.ToString();
+            EntryLongitude.Text = location.Longitude.ToString();   
+        }
+        catch (Exception ex)
+        {
+        }
+        finally
+        {
+            _isCheckingLocation = false;
+        }
+    }
+
+    private async void OnClick_To_GetPhotoPanoramica(object sender, EventArgs e)
+    {
+        var pagina = new PopupFoto();
+        await MopupService.Instance.PushAsync(pagina, true);
+        var result = await pagina.Show();
+
+        if(result && !pagina.opcao)
+        {
+
         }
         else
         {
-            EntryLatitude.Text = location.Latitude.ToString();
-            EntryLongitude.Text = location.Longitude.ToString();
+
         }
     }
 
-    private void OnClick_To_GetPhoto(object sender, EventArgs e)
+    private void OnClick_To_GetPhotoDetalhe1(object sender, EventArgs e)
     {
-        MopupService.Instance.PushAsync(new PopupFoto(), true);
+
     }
+
+    private void OnClick_To_GetPhotoDetalhe2(object sender, EventArgs e)
+    {
+
+    }
+
+    private async void GetPhoto_To_Camera()
+    {
+        await CrossMedia.Current.Initialize();
+
+        if (!CrossMedia.Current.IsTakePhotoSupported || !CrossMedia.Current.IsCameraAvailable)
+        {
+            await DisplayAlert("Ops", "Nenhuma câmera detectada.", "OK");
+            return;
+        }
+
+        if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
+        {
+            await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
+            return;
+        }
+    }
+
+    private async void SavePhoto()
+    {
+        string nomeFoto;
+        var file = await CrossMedia.Current.TakePhotoAsync(
+            new StoreCameraMediaOptions
+            {
+                SaveToAlbum = true,
+                //Name = _nomeDaFotoDetalhe1,
+                Directory = "PRU",
+                CompressionQuality = 60
+            });
+
+        if (file != null)
+        {
+            //FotoDetalhe1.Text = "Foto Detalhe 1 ✔";
+            //FotoDetalhe1.BackgroundColor = System.Drawing.Color.LimeGreen;
+            //FotoDetalhe1.TextColor = System.Drawing.Color.White;
+            return;
+        }
+
+    }
+
+
 }

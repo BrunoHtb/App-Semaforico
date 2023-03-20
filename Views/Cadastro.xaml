@@ -294,7 +294,7 @@
                     BackgroundColor="#808080" 
                     Padding="15"
                     VerticalOptions="Start"
-                    RowDefinitions="40, 40, 50" 
+                    RowDefinitions="50, 50, 50" 
                     ColumnDefinitions="150, *" 
                     Grid.Row="14">
                    <!-- LATITUDE --> 
@@ -310,6 +310,8 @@
                         x:Name="EntryLatitude"
                         Grid.Row="0"
                         Grid.Column="1"
+                        TextColor="White"
+                        FontSize="16"
                         IsEnabled="False" 
                         Margin="0,0,0,10" />
                     <!-- LONGITUDE -->
@@ -325,6 +327,8 @@
                         x:Name="EntryLongitude"
                         Grid.Row="1"
                         Grid.Column="1"
+                        TextColor="White"
+                        FontSize="16"
                         IsEnabled="False" 
                         Margin="0,0,0,10" />
 
@@ -346,7 +350,7 @@
                     Margin="0, 35, 0, 0" >
 
                     <Button
-                        Clicked="OnClick_To_GetPhoto"
+                        Clicked="OnClick_To_GetPhotoPanoramica"
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
                         Text="Foto Panorâmica"             
@@ -358,6 +362,7 @@
                         Grid.Column="0"/>
 
                     <Button
+                        Clicked="OnClick_To_GetPhotoDetalhe1"
                         Text="Foto&#10;Detalhe 1" 
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
@@ -369,6 +374,7 @@
                         Grid.Column="1"/>
 
                     <Button
+                        Clicked="OnClick_To_GetPhotoDetalhe2"
                         Text="Foto Detalhe 2" 
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"

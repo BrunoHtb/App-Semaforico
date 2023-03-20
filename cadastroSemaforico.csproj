@@ -29,6 +29,10 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Platforms>AnyCPU;x64</Platforms>
+		
+
+		<UseMauiEssentials>true</UseMauiEssentials>
+
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -61,6 +65,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Mopups" Version="1.1.1" />
+		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
 	</ItemGroup>
 
