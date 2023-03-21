@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups;assembly=Mopups"
-             xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
-             x:Class="cadastroSemaforico.Views.PopupFoto" 
-             CloseWhenBackgroundIsClicked="True"
-             BackgroundColor="#80000000">
-    <mopups:PopupPage.Animation>
-        <mopupsanim:ScaleAnimation
-            DurationIn="700"
-            EasingIn="BounceOut"
-            PositionIn="Bottom"
-            PositionOut="Center"
-            ScaleIn="1"
-            ScaleOut="0.7" />
-    </mopups:PopupPage.Animation>
-    
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="cadastroSemaforico.Views.PopupFoto" >
+
     <ScrollView
         HorizontalOptions="Center"
         VerticalOptions="CenterAndExpand">
@@ -64,4 +52,4 @@
             </VerticalStackLayout>
         </Border>
     </ScrollView>
-</mopups:PopupPage>
+</toolkit:Popup>

@@ -350,10 +350,11 @@
                     Margin="0, 35, 0, 0" >
 
                     <Button
-                        Clicked="OnClick_To_GetPhotoPanoramica"
+                        Clicked="OnClick_To_GetPhoto"
+                        x:Name="BtnFotoPanoramica"
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
-                        Text="Foto Panorâmica"             
+                        Text="Foto 1"             
                         FontSize="14"
                         FontAttributes="Bold"
                         CornerRadius="20"
@@ -362,8 +363,9 @@
                         Grid.Column="0"/>
 
                     <Button
-                        Clicked="OnClick_To_GetPhotoDetalhe1"
-                        Text="Foto&#10;Detalhe 1" 
+                        Clicked="OnClick_To_GetPhoto"
+                        x:Name="BtnFotoDetalhe1"
+                        Text="Foto 2" 
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
                         FontSize="14"
@@ -374,8 +376,9 @@
                         Grid.Column="1"/>
 
                     <Button
-                        Clicked="OnClick_To_GetPhotoDetalhe2"
-                        Text="Foto Detalhe 2" 
+                        Clicked="OnClick_To_GetPhoto"
+                        x:Name="BtnFotoDetalhe2"
+                        Text="Foto 3" 
                         ImageSource="camera.svg"
                         ContentLayout="Bottom, -30"
                         FontSize="14"
