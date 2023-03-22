@@ -17,19 +17,40 @@
                 </Grid>
 
                 <Label
-                    Text="ID Dispositivo" 
+                    Text=" ID Dispositivo" 
                     FontSize="20"/>
 
-                <Entry
-                    Text="Informe o ID do Dispositivo" />
+                <Entry 
+                    x:Name="EntryID"
+                    Text=" Informe o ID do Dispositivo" />
 
                 <Label
-                    Text="Nome usuário" />
+                    Text=" Nome usuário" />
+                <Entry 
+                    x:Name="EntryUsuario"
+                    Text=" Informe nome do usuário" />
+
+                <Label/>
+
+                <Label
+                    Text=" ---------------------------------------------------------------------------------" />
+
+
+                <Label
+                    Text=" Auditoria" />
                 <Entry
-                    Text="Informe nome do usuário" />
+                    x:Name="EntryAuditoria"
+                    Text="Informe a auditoria" />
 
+                <Label Margin="10"/>
 
-                <Button 
+                <Button
+                    WidthRequest="300"
+                    HeightRequest="100"
+                    BackgroundColor="#FFFF00"
+                    Margin="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"
                     Clicked="OnButtonClicked_To_Menu"
                     Text="Entrar" />
                 

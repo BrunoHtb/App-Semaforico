@@ -9,6 +9,8 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button
+            Text="CADASTRO SEMAFÓRICO"
+            TextColor="Black"
             Clicked="OnButtonClicked_To_Cadastro"
             />
     </VerticalStackLayout>

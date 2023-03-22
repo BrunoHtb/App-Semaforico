@@ -3,15 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cadastroSemaforico.Views.Menu"
              Title="Menu">
-    <StackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Grid RowDefinitions="*, 20" ColumnDefinitions="*, 20" Background="#F6E120">
+                    <Image 
+                        Source="panel.svg" 
+                        Margin="20" 
+                        HorizontalOptions="Start" 
+                        Grid.Column="0" 
+                        Grid.Row="0"/>
 
-        <Button
-            Clicked="Clicked_To_ListaCadastro"
-            Text="Cadastro Semaforico"
-            />
-    </StackLayout>
+                </Grid>
+                <Label Margin="30"></Label>
+                <Button
+                    WidthRequest="300"
+                    HeightRequest="100"
+                    FontAttributes="Bold"
+                    ImageSource="semaforo.svg"
+                    BackgroundColor="#00FF00"
+                    TextColor="Black"
+                    LineBreakMode="WordWrap"
+                    Text="CADASTRO DE SEMAFÓRICO"
+                    FontSize="20"
+                    Clicked="Clicked_To_ListaCadastro"
+                    Margin="20"
+                    />
+
+                <Button 
+                    WidthRequest="300"
+                    HeightRequest="100"
+                    FontAttributes="Bold"
+                    ImageSource="engrenagem.svg"
+                    BackgroundColor="#FFFF00"                      
+                    Margin="20"
+                    TextColor="Black"
+                    LineBreakMode="WordWrap"
+                    FontSize="20"
+                    Text="CONFIGURAR UM DISPOSITIVO"
+                    />
+
+                <Button 
+                    WidthRequest="300"
+                    HeightRequest="100"
+                    FontAttributes="Bold"
+                    ImageSource="upload.svg"
+                    BackgroundColor="#FF2020"
+                    Clicked="Clicked_To_Exportacao"
+                    Margin="20"
+                    FontSize="20"
+                    TextColor="Black"
+                    Text="ENVIAR DADOS"
+                    />                
+                
+            </StackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
 </ContentPage>
