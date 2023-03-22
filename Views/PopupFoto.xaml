@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="cadastroSemaforico.Views.PopupFoto" >
+
+    <ScrollView
+        HorizontalOptions="Center"
+        VerticalOptions="CenterAndExpand">
+        <Border
+            WidthRequest="350"
+            HeightRequest="350"
+            Background="Black"
+            HorizontalOptions="Center"
+            StrokeShape="RoundRectangle 40, 40, 40, 40" >
+
+            <VerticalStackLayout Spacing="30">
+                <Label 
+                    Text="Selecione imagem usando:" 
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    Margin="0, 10, 0, 0"
+                    HorizontalTextAlignment="Center" />
+                
+                    <Button 
+                        Clicked="OnClick_To_GetCamera"
+                        Text="CÂMERA"
+                        x:Name="Foto"
+                        ImageSource="fotografia.png"
+                        BorderColor="Blue"
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        BackgroundColor="LimeGreen"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+
+                <Button
+                        Clicked="OnClick_To_GetGallery" 
+                        Text="GALERIA"
+                        x:Name="Galeria"
+                        ImageSource="galeria.png"
+                        BorderColor="Blue"
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        BackgroundColor="LimeGreen"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+                        
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</toolkit:Popup>

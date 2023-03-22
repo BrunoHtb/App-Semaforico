@@ -4,14 +4,50 @@
              x:Class="cadastroSemaforico.Views.ListaCadastro"
              Title="ListaCadastro">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
-            Text="CADASTRO SEMAFÓRICO"
-            TextColor="Black"
-            Clicked="OnButtonClicked_To_Cadastro"
-            />
+        <ScrollView>
+            <CollectionView 
+                x:Name="CVListaCadastro" 
+                SelectionMode="Single"
+                SelectionChanged="CVListaCadastro_SelectionChanged">
+                <CollectionView.ItemTemplate ItemTapped="SelectCadastro_ItemTapped">
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,4*">
+                            <CheckBox />
+                            <Label
+                                Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Rodovia}" />
+                                        <Span Text="{Binding CodigoElemento}" />
+                                        <Span Text="{Binding Sentido}" />
+                                        <Span Text="{Binding LadoPista}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        
+        
+        <Button HorizontalOptions="Center" Text="+" Clicked="OnButtonClicked_To_Cadastro"  FontSize="36" CornerRadius="27" WidthRequest="54" HeightRequest="54" Padding="0" />
+        <Border BackgroundColor="Black"  Margin="10" StrokeThickness="0" StrokeShape="RoundRectangle 30" Padding="10">
+
+            <Grid RowDefinitions="Auto, Auto, 30, Auto, Auto" ColumnDefinitions="*, 80" >
+
+                <Label Text="Rodovia" Grid.Row="0" Grid.Column="0" TextColor="#979797" FontSize="18" />
+                <Label x:Name="LabelRodovia" Grid.Row="1" Grid.Column="0" TextColor="White" FontSize="18" />
+
+                <Label Text="Código" Grid.Row="3" Grid.Column="0" TextColor="#979797" FontSize="12" />
+                <Label x:Name="LabelCodigoElemento" Grid.Row="4" Grid.Column="0" TextColor="White" FontSize="12" />
+
+                <Button  Text="Edit" HorizontalOptions="Center" Grid.RowSpan="2" Grid.Column="1" WidthRequest="54" HeightRequest="54" Padding="0"  />
+                <Label Text="Despesas" Grid.Column="1" Grid.Row="3" TextColor="#979797" FontSize="8"/>
+                <Label Text="R$ 840,00" TextColor="White" Grid.Column="1" Grid.Row="4" FontSize="12" />
+            </Grid>
+
+        </Border>
+
     </VerticalStackLayout>
 </ContentPage>
