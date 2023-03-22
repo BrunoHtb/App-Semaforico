@@ -1,10 +1,12 @@
 using cadastroSemaforico.Database;
-
+using cadastroSemaforico.Models;
+using Microsoft.Maui.Controls;
 
 namespace cadastroSemaforico.Views;
 
 public partial class ListaCadastro : ContentPage
 {
+    CadastroSemaforico _cadastroSemaforico;
 	public ListaCadastro()
 	{
 		InitializeComponent();
@@ -28,13 +30,24 @@ public partial class ListaCadastro : ContentPage
             Directory.CreateDirectory(path);
         }
     }
-    private async void OnButtonClicked_To_Cadastro(object sender, EventArgs e)
+    private async void OnButtonClicked_To_CadastroNovo(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new Cadastro());
     }
 
-    private void CVListaCadastro_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void Selection_Item_Changed(object sender, SelectionChangedEventArgs e)
     {
+        if(e.CurrentSelection.FirstOrDefault() is CadastroSemaforico selectedItem)
+        {
+            LabelRodovia.Text = selectedItem.Rodovia;
+            LabelCodigoElemento.Text = selectedItem.CodigoElemento;
 
+            _cadastroSemaforico = selectedItem;
+        }
+    }
+
+    private async void OnButtonClicked_To_CadastroEditar(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new CadastroEditar(_cadastroSemaforico));
     }
 }

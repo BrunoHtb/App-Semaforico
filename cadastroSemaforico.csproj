@@ -69,7 +69,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\Cadastro.xaml">
+	  <MauiXaml Update="Views\CadastroEditar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CadastroNovo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Exportacao.xaml">
@@ -91,6 +94,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Context\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\CadastroNovo.xaml.cs">
+	    <DependentUpon>CadastroNovo.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptioncadastroSemaforicoHideInfoBar="True" /></VisualStudio></ProjectExtensions>

@@ -35,6 +35,6 @@ namespace cadastroSemaforico.Models
         public string IdDispositivo { get; set; }
         public string StatusInterno { get; set; }
         public int Auditoria { get; set; }
-        
+        public string DataCadastro { get; set; }
     }
 }

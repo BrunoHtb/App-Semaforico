@@ -1,10 +1,8 @@
 ﻿using cadastroSemaforico.Database;
 using cadastroSemaforico.Models;
-using Microsoft.Maui.Media;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
-using Microsoft.Maui.Graphics;
 using CommunityToolkit.Maui.Views;
-using Plugin.Media;
+
 
 namespace cadastroSemaforico.Views;
 
@@ -12,14 +10,15 @@ public partial class Cadastro : ContentPage
 {
     CancellationTokenSource _cancelTokenSource;
     bool _isCheckingLocation;
-    private string nomeFotoPanoramica = "";
-    private string nomeFotoDetalhe1 = "";
-    private string nomeFotoDetalhe2 = "";
-    private string dateRegisterBegin;
+    private string _nomeFotoPanoramica = "";
+    private string _nomeFotoDetalhe1 = "";
+    private string _nomeFotoDetalhe2 = "";
+    private string _dateRegisterBegin;
+
     public Cadastro()
 	{
 		InitializeComponent();
-        dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
+        _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
     }
 
     private async void OnClick_To_Save(object sender, EventArgs e)
@@ -51,10 +50,11 @@ public partial class Cadastro : ContentPage
         cadastroSemaforico.Observacao = EntryObs.Text;
         cadastroSemaforico.Latitude = EntryLatitude.Text;
         cadastroSemaforico.Longitude = EntryLongitude.Text;
-        cadastroSemaforico.FotoPanoramica = nomeFotoPanoramica;
-        cadastroSemaforico.FotoDetalhe1 = nomeFotoDetalhe1;
-        cadastroSemaforico.FotoDetalhe2 = nomeFotoDetalhe2;
-        cadastroSemaforico.CodigoElemento = GetCodeRegister();
+        cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
+        cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
+        cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
+        cadastroSemaforico.CodigoElemento = GetCode_Register();
+        cadastroSemaforico.DataCadastro = _dateRegisterBegin;
 
         //TODO - Salvar a Tarefa no Banco
         await new CadastroDB().CadastrarAsync(cadastroSemaforico);
@@ -125,18 +125,18 @@ public partial class Cadastro : ContentPage
     private async void GetPhoto_To_Camera(int ultimoDigito)
     {
         FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-        NamePhotoAndSaveDirectory(photo, ultimoDigito);
+        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
     }
     private async void GetPhoto_To_Gallery(int ultimoDigito)
     {
         FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-        NamePhotoAndSaveDirectory(photo, ultimoDigito);
+        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
     }
-    private async void NamePhotoAndSaveDirectory(FileResult photo, int ultimoDigito)
+    private async void NamePhoto_And_SaveDirectory(FileResult photo, int ultimoDigito)
     {
         try
         {
-            string nomeFoto = "Semaforica_DR" + GetCodeRegister();
+            string nomeFoto = "Semaforica_DR" + GetCode_Register();
 
             if (photo != null)
             {
@@ -151,43 +151,115 @@ public partial class Cadastro : ContentPage
 
                 await sourceStream.CopyToAsync(localFileStream);
 
-                ButtonTakePhotoOK(ultimoDigito, nomeFoto);
+                Button_Take_PhotoOK(ultimoDigito, nomeFoto);
                 return;
             }
         }
         catch { }
     }
 
-    private void ButtonTakePhotoOK(int ultimoDigito, string nomeFoto) 
+    private void Button_Take_PhotoOK(int ultimoDigito, string nomeFoto) 
     {
         Button selectButton;
         
         if(ultimoDigito == 1)
         {
             selectButton = BtnFotoPanoramica;
-            nomeFotoPanoramica = nomeFoto;
+            _nomeFotoPanoramica = nomeFoto;
         }
         else if(ultimoDigito == 2)
         {
             selectButton = BtnFotoDetalhe1;
-            nomeFotoDetalhe1 = nomeFoto;
+            _nomeFotoDetalhe1 = nomeFoto;
         }
         else
         {
             selectButton = BtnFotoDetalhe2;
-            nomeFotoDetalhe2 = nomeFoto;
+            _nomeFotoDetalhe2 = nomeFoto;
         }
 
         selectButton.Text = "Foto ✔";
         selectButton.BackgroundColor = Color.FromRgb(50, 205, 50);
         selectButton.TextColor = Color.FromRgb(255, 255, 255);
     }
+    private void Button_Take_PhotoClear(int ultimoDigito)
+    {
+        Button selectButton;
+         if (ultimoDigito == 1)
+        {
+            selectButton = BtnFotoPanoramica;
+            _nomeFotoPanoramica = "";
+        }
+        else if (ultimoDigito == 2)
+        {
+            selectButton = BtnFotoDetalhe1;
+            selectButton = BtnFotoDetalhe1;
+        }
+        else
+        {
+            selectButton = BtnFotoDetalhe2;
+            _nomeFotoDetalhe2 = "";
+        }
 
-    private string GetCodeRegister()
+        selectButton.BackgroundColor = Color.FromRgb(128, 128, 128);
+        selectButton.TextColor = Color.FromRgb(255, 255, 255);
+    }
+
+    private string GetCode_Register()
     {
         return PckDR.Items[PckDR.SelectedIndex] + "_" + EntryRodovia.Text.ToUpper().Replace(" ", "") + "_KM_" + EntryKM.Text +
             "_" + PckSentido.Items[PckSentido.SelectedIndex].Substring(0, 3) + "_" + PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex].Substring(0, 1) +
-            dateRegisterBegin;
+            _dateRegisterBegin;
     }
 
+    private void OnClick_To_Clear(object sender, EventArgs e)
+    {
+        EntryRodovia.Text = string.Empty;
+        PckDR.SelectedIndex = -1;
+        PckSentido.SelectedIndex = -1;
+        PckLadoDaPista.SelectedIndex = -1;
+        PckAtendimentoNorma.SelectedIndex = -1;
+        EntryObsAN.Text = string.Empty;
+        EntryKM.Text = string.Empty;
+        PckDestinacao.SelectedIndex = -1;
+        PckTipoSinalizacao.SelectedIndex = -1;
+        PckForma.SelectedIndex = -1;
+        PckIndicacaoLuminosa.SelectedIndex = -1;
+        PckSequencia.SelectedIndex = -1;
+        PckEstadoConservacao.SelectedIndex = -1;
+        EntryObsEC.Text = string.Empty;
+        EntryObs.Text = string.Empty;
+        EntryLatitude.Text = string.Empty;
+        EntryLongitude.Text = string.Empty;
+        EntryCodElemento.Text = string.Empty;
+        Button_Take_PhotoClear(1);
+        Button_Take_PhotoClear(2);
+        Button_Take_PhotoClear(3);
+    }
+
+    private async void OnClick_To_Cancel(object sender, EventArgs e)
+    {
+        bool cancelar = await DisplayAlert("Atenção", "Tem certeza que deseja cancelar esse cadastro?", "SIM", "NÃO");
+        if (cancelar == true)
+        {
+            RemoverPageRelacaoElementos();
+            await App.Current.MainPage.Navigation.PushAsync(new ListaCadastro());
+        }
+        else
+        {
+            return;
+        }
+    }
+    private void RemoverPageRelacaoElementos()
+    {
+        var removePage = this.Navigation.NavigationStack;
+        for (int i = 0; i < removePage.Count; i++)
+        {
+            var name = removePage[i].Title;
+            if (name == "Cadastro Semafórico")
+            {
+                Navigation.RemovePage(this.Navigation.NavigationStack[i]);
+            }
+        }
+    }
 }
