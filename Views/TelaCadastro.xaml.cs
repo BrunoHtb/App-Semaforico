@@ -3,11 +3,12 @@ using cadastroSemaforico.Models;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
 using CommunityToolkit.Maui.Views;
 
-
 namespace cadastroSemaforico.Views;
 
 public partial class Cadastro : ContentPage
 {
+    private CadastroSemaforico _cadastroSemaforico;
+    private bool update;
     CancellationTokenSource _cancelTokenSource;
     bool _isCheckingLocation;
     private string _nomeFotoPanoramica = "";
@@ -18,7 +19,57 @@ public partial class Cadastro : ContentPage
     public Cadastro()
 	{
 		InitializeComponent();
+
+        update = false;
+        _cadastroSemaforico = new CadastroSemaforico();
         _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
+    }
+
+    public Cadastro(CadastroSemaforico cadastroSemaforico)
+    {
+        InitializeComponent();
+
+        update = true;
+        _cadastroSemaforico = cadastroSemaforico;
+        FillFields();
+    }
+    private void FillFields()
+    {
+        EntryRodovia.Text = _cadastroSemaforico.Rodovia;
+        PckDR.SelectedItem = _cadastroSemaforico.Regional;
+        PckSentido.SelectedItem = _cadastroSemaforico.Sentido;
+        PckLadoDaPista.SelectedItem = _cadastroSemaforico.LadoPista;
+        PckAtendimentoNorma.SelectedItem = _cadastroSemaforico.AtendimentoNorma;
+        EntryObsAN.Text = _cadastroSemaforico.ObservacaoAN;
+        EntryKM.Text = _cadastroSemaforico.KM;
+        PckDestinacao.SelectedItem = _cadastroSemaforico.Destinacao;
+        PckTipoSinalizacao.SelectedItem = _cadastroSemaforico.TipoSinalizacao;
+        PckForma.SelectedItem = _cadastroSemaforico.FormaFoco;
+        PckIndicacaoLuminosa.SelectedItem = _cadastroSemaforico.IndicacaoLuminosa;
+        PckSequencia.SelectedItem = _cadastroSemaforico.SequenciaLuminosa;
+        PckEstadoConservacao.SelectedItem = _cadastroSemaforico.EstadoConservacao;
+        EntryObsEC.Text = _cadastroSemaforico.ObservacaoEC;
+        EntryObs.Text = _cadastroSemaforico.Observacao;
+        EntryLatitude.Text = _cadastroSemaforico.Latitude;
+        EntryLongitude.Text = _cadastroSemaforico.Longitude;
+        EntryCodElemento.Text = _cadastroSemaforico.CodigoElemento;
+        _nomeFotoPanoramica = _cadastroSemaforico.FotoPanoramica;
+        _nomeFotoDetalhe1 = _cadastroSemaforico.FotoDetalhe1;
+        _nomeFotoDetalhe2 = _cadastroSemaforico.FotoDetalhe2;
+        _dateRegisterBegin = _cadastroSemaforico.DataCadastro;
+
+        if(_nomeFotoPanoramica != "")
+        {
+            Button_Take_PhotoOK(1, _nomeFotoPanoramica);
+        }
+        if (_nomeFotoDetalhe1 != "")
+        {
+            Button_Take_PhotoOK(2, _nomeFotoDetalhe1);
+        }
+        if (_nomeFotoDetalhe2 != "")
+        {
+            Button_Take_PhotoOK(3, _nomeFotoDetalhe2);
+        }
     }
 
     private async void OnClick_To_Save(object sender, EventArgs e)
@@ -29,35 +80,39 @@ public partial class Cadastro : ContentPage
             return;
         }
 
-        //TODO - Pegar os dados da Tela e Criar uma tarefa
-        CadastroSemaforico cadastroSemaforico = new CadastroSemaforico();
-
         //TODO - Validação dos dados
-        cadastroSemaforico.Rodovia = EntryRodovia.Text;
-        cadastroSemaforico.Regional = (PckDR.SelectedIndex == -1) ? "" : PckDR.Items[PckDR.SelectedIndex];
-        cadastroSemaforico.Sentido = (PckSentido.SelectedIndex == -1) ? "" : PckSentido.Items[PckSentido.SelectedIndex];
-        cadastroSemaforico.LadoPista = (PckLadoDaPista.SelectedIndex == -1) ? "" : PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex];
-        cadastroSemaforico.AtendimentoNorma = (PckAtendimentoNorma.SelectedIndex == -1) ? "" : PckAtendimentoNorma.Items[PckAtendimentoNorma.SelectedIndex];
-        cadastroSemaforico.ObservacaoAN = EntryObsAN.Text;
-        cadastroSemaforico.KM = EntryKM.Text;
-        cadastroSemaforico.Destinacao = (PckDestinacao.SelectedIndex == -1) ? "" : PckDestinacao.Items[PckDestinacao.SelectedIndex];
-        cadastroSemaforico.TipoSinalizacao = (PckTipoSinalizacao.SelectedIndex == -1) ? "" : PckTipoSinalizacao.Items[PckTipoSinalizacao.SelectedIndex];
-        cadastroSemaforico.FormaFoco = (PckForma.SelectedIndex == -1) ? "" : PckForma.Items[PckForma.SelectedIndex];
-        cadastroSemaforico.IndicacaoLuminosa = (PckIndicacaoLuminosa.SelectedIndex == -1) ? "" : PckIndicacaoLuminosa.Items[PckIndicacaoLuminosa.SelectedIndex];
-        cadastroSemaforico.SequenciaLuminosa = (PckSequencia.SelectedIndex == -1) ? "" : PckSequencia.Items[PckSequencia.SelectedIndex];
-        cadastroSemaforico.EstadoConservacao = (PckEstadoConservacao.SelectedIndex == -1) ? "" : PckEstadoConservacao.Items[PckEstadoConservacao.SelectedIndex];
-        cadastroSemaforico.ObservacaoEC = EntryObsEC.Text;
-        cadastroSemaforico.Observacao = EntryObs.Text;
-        cadastroSemaforico.Latitude = EntryLatitude.Text;
-        cadastroSemaforico.Longitude = EntryLongitude.Text;
-        cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
-        cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
-        cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
-        cadastroSemaforico.CodigoElemento = GetCode_Register();
-        cadastroSemaforico.DataCadastro = _dateRegisterBegin;
+        _cadastroSemaforico.Rodovia = EntryRodovia.Text;
+        _cadastroSemaforico.Regional = (PckDR.SelectedIndex == -1) ? "" : PckDR.Items[PckDR.SelectedIndex];
+        _cadastroSemaforico.Sentido = (PckSentido.SelectedIndex == -1) ? "" : PckSentido.Items[PckSentido.SelectedIndex];
+        _cadastroSemaforico.LadoPista = (PckLadoDaPista.SelectedIndex == -1) ? "" : PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex];
+        _cadastroSemaforico.AtendimentoNorma = (PckAtendimentoNorma.SelectedIndex == -1) ? "" : PckAtendimentoNorma.Items[PckAtendimentoNorma.SelectedIndex];
+        _cadastroSemaforico.ObservacaoAN = EntryObsAN.Text;
+        _cadastroSemaforico.KM = EntryKM.Text;
+        _cadastroSemaforico.Destinacao = (PckDestinacao.SelectedIndex == -1) ? "" : PckDestinacao.Items[PckDestinacao.SelectedIndex];
+        _cadastroSemaforico.TipoSinalizacao = (PckTipoSinalizacao.SelectedIndex == -1) ? "" : PckTipoSinalizacao.Items[PckTipoSinalizacao.SelectedIndex];
+        _cadastroSemaforico.FormaFoco = (PckForma.SelectedIndex == -1) ? "" : PckForma.Items[PckForma.SelectedIndex];
+        _cadastroSemaforico.IndicacaoLuminosa = (PckIndicacaoLuminosa.SelectedIndex == -1) ? "" : PckIndicacaoLuminosa.Items[PckIndicacaoLuminosa.SelectedIndex];
+        _cadastroSemaforico.SequenciaLuminosa = (PckSequencia.SelectedIndex == -1) ? "" : PckSequencia.Items[PckSequencia.SelectedIndex];
+        _cadastroSemaforico.EstadoConservacao = (PckEstadoConservacao.SelectedIndex == -1) ? "" : PckEstadoConservacao.Items[PckEstadoConservacao.SelectedIndex];
+        _cadastroSemaforico.ObservacaoEC = EntryObsEC.Text;
+        _cadastroSemaforico.Observacao = EntryObs.Text;
+        _cadastroSemaforico.Latitude = EntryLatitude.Text;
+        _cadastroSemaforico.Longitude = EntryLongitude.Text;
+        _cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
+        _cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
+        _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
+        _cadastroSemaforico.CodigoElemento = GetCode_Register();
+        _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
 
         //TODO - Salvar a Tarefa no Banco
-        await new CadastroDB().CadastrarAsync(cadastroSemaforico);
+        if (update)
+        {
+            await new CadastroDB().AtualizarAsync(_cadastroSemaforico);
+        }
+        else
+        {
+            await new CadastroDB().CadastrarAsync(_cadastroSemaforico);
+        }
 
         //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
         await DisplayAlert("Dados Salvos", "As informações foram salvas com sucesso", "OK");
@@ -141,11 +196,18 @@ public partial class Cadastro : ContentPage
             if (photo != null)
             {
                 nomeFoto += "_" + ultimoDigito + ".jpg";
-
                 photo.FileName = nomeFoto;
 
-                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                string appDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string photosDir = Path.Combine(appDir, "Semaforico");
 
+                string localFilePath = Path.Combine(photosDir, photo.FileName);
+
+                if (!Directory.Exists(photosDir))
+                {
+                    Directory.CreateDirectory(photosDir);
+                }
+                
                 using Stream sourceStream = await photo.OpenReadAsync();
                 using FileStream localFileStream = File.OpenWrite(localFilePath);
 
