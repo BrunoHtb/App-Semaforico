@@ -48,6 +48,10 @@ public partial class ListaCadastro : ContentPage
 
     private async void OnButtonClicked_To_CadastroEditar(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new CadastroEditar(_cadastroSemaforico));
+        try
+        {
+            await Navigation.PushAsync(new Cadastro(_cadastroSemaforico));
+        }
+        catch(Exception ex) { }
     }
 }
