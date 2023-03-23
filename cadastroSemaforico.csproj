@@ -53,6 +53,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Context\**" />
+	  <Compile Remove="Context\**" />
+	  <EmbeddedResource Remove="Context\**" />
+	  <MauiCss Remove="Context\**" />
+	  <MauiXaml Remove="Context\**" />
+	  <None Remove="Context\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\camera.svg" />
 	  <None Remove="Resources\Images\fotografia.png" />
 	  <None Remove="Resources\Images\galeria.png" />
@@ -64,6 +73,7 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
 		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
 	</ItemGroup>
@@ -87,10 +97,6 @@
 	  <MauiXaml Update="Views\PopupFoto.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Context\" />
 	</ItemGroup>
 
 	<ItemGroup>

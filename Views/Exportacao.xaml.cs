@@ -1,3 +1,6 @@
+using cadastroSemaforico.Database;
+using cadastroSemaforico.Models;
+
 namespace cadastroSemaforico.Views;
 
 public partial class Exportacao : ContentPage
@@ -5,6 +8,7 @@ public partial class Exportacao : ContentPage
 	public Exportacao()
 	{
 		InitializeComponent();
+        using var contextDbSemaforico = new BancoContext();
 	}
     private async void OnButtonClicked_To_Exportacao(object sender, EventArgs e)
     {
@@ -13,5 +17,10 @@ public partial class Exportacao : ContentPage
     private void OnButtonClicked_To_Menu(object sender, EventArgs e)
     {
         Navigation.PopAsync();
+    }
+
+    private void OnButtonClicked_To_Export(object sender, EventArgs e)
+    {
+
     }
 }

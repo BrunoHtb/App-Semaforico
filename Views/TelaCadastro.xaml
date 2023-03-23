@@ -3,8 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="cadastroSemaforico.Views.Cadastro"
-             Title="Cadastro Semafórico">
+             >
     <StackLayout Orientation="Vertical">
+        
+        <StackLayout
+            BackgroundColor="#808080"
+            Margin="0, 0, 0, 10">
+            <Label
+                Text="Auditoria"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="#FFF"
+                Background="Black" 
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                TextTransform="Uppercase" />
+            <Entry
+                x:Name="EntryAuditoria"
+                FontAttributes="Bold"
+                FontSize="18"
+                TextColor="#FFF"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                ClearButtonVisibility="WhileEditing"
+                Keyboard="Numeric"
+                MaxLength="4" />
+        </StackLayout>
+        
         <ScrollView
             VerticalOptions="FillAndExpand">
             <Grid 
@@ -24,7 +51,8 @@
                         x:Name="EntryRodovia"
                         Placeholder="Rodovia" 
                         Grid.Row="1"
-                        Grid.Column="0"/>
+                        Grid.Column="0"
+                        ClearButtonVisibility="WhileEditing" />
 
                     <!-- DR -->
                     <Label 
@@ -120,7 +148,8 @@
                     <Entry
                         x:Name="EntryObsAN"
                         Placeholder="Obs. Atendimento as Normas" 
-                        MaxLength="100" />
+                        MaxLength="100" 
+                        ClearButtonVisibility="WhileEditing" />
                 </StackLayout>
 
                 <!-- LINHA 7 -->
@@ -138,9 +167,10 @@
                         Placeholder="KM"
                         Keyboard="Numeric"
                         Grid.Row="1"
-                        Grid.Column="0">
+                        Grid.Column="0"
+                        ClearButtonVisibility="WhileEditing" >
                         <Entry.Behaviors>
-                            <mct:MaskedBehavior Mask="XXXXXX+XXX" UnmaskedCharacter="X"/>
+                            <mct:MaskedBehavior Mask="XXX+XXX" UnmaskedCharacter="X"/>
                         </Entry.Behaviors>
                     </Entry>
 
@@ -264,7 +294,8 @@
                     <Entry
                         x:Name="EntryObsEC"
                         Placeholder="Obs. Estado de Conservação" 
-                        MaxLength="100" />
+                        MaxLength="100" 
+                        ClearButtonVisibility="WhileEditing" />
                 </StackLayout>
 
                 <!-- LINHA 13 -->
@@ -277,7 +308,8 @@
                     <Entry
                         x:Name="EntryObs"
                         Placeholder="Observação" 
-                        MaxLength="100" />
+                        MaxLength="100" 
+                        ClearButtonVisibility="WhileEditing" />
                 </StackLayout>
 
                 <!-- LINHA 14

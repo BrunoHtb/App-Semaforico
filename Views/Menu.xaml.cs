@@ -16,4 +16,9 @@ public partial class Menu : ContentPage
     {
         await Navigation.PushAsync(new Exportacao());
     }
+
+    private async void Clicked_To_ConfigurarDispositivo(object sender, EventArgs e)
+    {
+        await Navigation.PopToRootAsync();
+    }
 }
