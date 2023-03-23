@@ -11,6 +11,7 @@ namespace cadastroSemaforico.Database
     public class BancoContext : DbContext
     {
         public DbSet<CadastroSemaforico> CadastrosSemaforico { get; set; }
+        public DbSet<DadoLogin> DadosLogin { get; set; }
 
         public BancoContext()
         {

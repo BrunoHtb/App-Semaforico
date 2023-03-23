@@ -51,5 +51,32 @@ namespace cadastroSemaforico.Database
         {
             return await Banco.CadastrosSemaforico.FindAsync(id);
         }
+
+
+        /* --------------------------------------------------------------------------------------------------------- */
+        /*                                              LOGIN                                                        */
+        /* --------------------------------------------------------------------------------------------------------- */
+        //Cadastra elemento novo LOGIN
+        public async Task<bool> CadastrarLoginAsync(DadoLogin dadosLogin)
+        {
+            Banco.DadosLogin.Add(dadosLogin);
+            int linhas = await Banco.SaveChangesAsync();
+            return (linhas > 0) ? true : false;
+        }
+
+        //Edita elemento novo LOGIN
+        public async Task<bool> AtualizarLoginAsync(DadoLogin dadosLogin)
+        {
+            Banco.DadosLogin.Update(dadosLogin);
+            int linhas = await Banco.SaveChangesAsync();
+            return (linhas > 0) ? true : false;
+        }
+
+        //Retorna a lista toda
+        public async Task<List<DadoLogin>> PesquisarLoginAsync()
+        {
+            return await Banco.DadosLogin.ToListAsync();
+        }
+
     }
 }

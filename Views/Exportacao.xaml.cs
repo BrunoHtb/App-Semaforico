@@ -14,4 +14,9 @@ public partial class Exportacao : ContentPage
     {
         Navigation.PopAsync();
     }
+
+    private void OnButtonClicked_To_Export(object sender, EventArgs e)
+    {
+
+    }
 }

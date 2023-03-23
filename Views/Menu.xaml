@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cadastroSemaforico.Views.Menu"
-             Title="Menu">
+             NavigationPage.HasBackButton="False">
     <VerticalStackLayout>
         <ScrollView>
             <StackLayout>
@@ -15,47 +15,47 @@
                         Grid.Row="0"/>
 
                 </Grid>
-                <Label Margin="30"></Label>
-                <Button
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="semaforo.svg"
-                    BackgroundColor="#00FF00"
-                    TextColor="Black"
-                    LineBreakMode="WordWrap"
-                    Text="CADASTRO DE SEMAFÓRICO"
-                    FontSize="20"
-                    Clicked="Clicked_To_ListaCadastro"
-                    Margin="20"
-                    />
+                <StackLayout
+                    Margin="0, 20, 0, 0">
+                    <Button
+                        Clicked="Clicked_To_ListaCadastro"
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="semaforo.svg"
+                        BackgroundColor="#00FF00"
+                        TextColor="Black"
+                        LineBreakMode="WordWrap"
+                        Text="CADASTRO DE SEMAFÓRICO"
+                        FontSize="20"
+                        Margin="50" />
 
-                <Button 
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="engrenagem.svg"
-                    BackgroundColor="#FFFF00"                      
-                    Margin="20"
-                    TextColor="Black"
-                    LineBreakMode="WordWrap"
-                    FontSize="20"
-                    Text="CONFIGURAR UM DISPOSITIVO"
-                    />
+                    <Button 
+                        Clicked="Clicked_To_ConfigurarDispositivo"
+                        Text="CONFIGURAR DISPOSITIVO"
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="engrenagem.svg"
+                        BackgroundColor="#FFFF00"                      
+                        Margin="20"
+                        TextColor="Black"
+                        LineBreakMode="WordWrap"
+                        FontSize="20" />
 
-                <Button 
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="upload.svg"
-                    BackgroundColor="#FF2020"
-                    Clicked="Clicked_To_Exportacao"
-                    Margin="20"
-                    FontSize="20"
-                    TextColor="Black"
-                    Text="ENVIAR DADOS"
-                    />                
-                
+                    <Button 
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="upload.svg"
+                        BackgroundColor="#FF2020"
+                        Clicked="Clicked_To_Exportacao"
+                        Margin="20"
+                        FontSize="20"
+                        TextColor="Black"
+                        Text="ENVIAR DADOS" />
+                    
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </VerticalStackLayout>
