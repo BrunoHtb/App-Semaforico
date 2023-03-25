@@ -37,7 +37,10 @@
             Margin="0, 50, 0, 0" >
             
             <Button 
+<<<<<<< HEAD
                 Clicked="OnButtonClicked_To_Export"
+=======
+>>>>>>> 531d3bd391d4dd4b83f28915752e54e0678e2dd7
                 Text="ATUALIZAR BANCO  DE DADOS"
                 WidthRequest="300"
                 HeightRequest="100"
@@ -50,6 +53,10 @@
                 ImageSource="refresh.svg"      
                 Grid.Row="0" />
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 531d3bd391d4dd4b83f28915752e54e0678e2dd7
             <Button
                 Clicked="OnButtonClicked_To_Menu"
                 Text="VOLTAR"
