@@ -41,6 +41,12 @@ public partial class Cadastro : ContentPage
     }
     private void FillFields()
     {
+        _lista = await new CadastroDB().PesquisarLoginAsync();
+        EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
+    }
+
+    private async void FillFields()
+    {
         EntryRodovia.Text = _cadastroSemaforico.Rodovia;
         PckDR.SelectedItem = _cadastroSemaforico.Regional;
         PckSentido.SelectedItem = _cadastroSemaforico.Sentido;

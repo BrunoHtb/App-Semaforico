@@ -7,6 +7,7 @@ namespace cadastroSemaforico.Views;
 public partial class ListaCadastro : ContentPage
 {
     CadastroSemaforico _cadastroSemaforico;
+
 	public ListaCadastro()
 	{
 		InitializeComponent();
@@ -54,4 +55,5 @@ public partial class ListaCadastro : ContentPage
         }
         catch(Exception ex) { }
     }
+
 }
