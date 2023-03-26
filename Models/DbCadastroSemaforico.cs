@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace cadastroSemaforico.Models
 {
+
     public class SemaforicoPostgreSQLDB
     {
         [Key]
