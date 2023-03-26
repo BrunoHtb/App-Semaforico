@@ -12,11 +12,11 @@ public partial class Exportacao : ContentPage
     List<SemaforicoPostgreSQLDB> _listCadastrosPostgres;
 
     public Exportacao()
-	{
-		InitializeComponent();
-    Count_Register();
-	}
-  
+    {
+        InitializeComponent();
+        Count_Register();
+    }
+
     private void Count_Register()
     {
         _listRegistros = new CadastroSQLiteDB().PesquisarAsync();
@@ -31,9 +31,9 @@ public partial class Exportacao : ContentPage
 
     private async void OnButtonClicked_To_Export(object sender, EventArgs e)
     {
-        int contador = 0;       
+        int contador = 0;
         _listCadastrosPostgres = new List<SemaforicoPostgreSQLDB>();
-        
+
         foreach (CadastroSemaforico cadastro in _listRegistros.Result)
         {
             _cadastroPostgres = new SemaforicoPostgreSQLDB();
@@ -45,7 +45,7 @@ public partial class Exportacao : ContentPage
             _cadastroPostgres.km = cadastro.KM;
             _cadastroPostgres.lado_pista = cadastro.LadoPista;
             _cadastroPostgres.sentido = cadastro.Sentido;
-            _cadastroPostgres.tipo_sinalizaÃ§Ã£o = cadastro.TipoSinalizacao;
+            _cadastroPostgres.tipo_sinalização = cadastro.TipoSinalizacao;
             _cadastroPostgres.destinacao = cadastro.Destinacao;
             _cadastroPostgres.numero_indicacoes_luminosas = cadastro.IndicacaoLuminosa;
             _cadastroPostgres.sequencia_luminosa = cadastro.SequenciaLuminosa;

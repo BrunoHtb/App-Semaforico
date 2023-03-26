@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace cadastroSemaforico.Database
 {
     public class CadastroSQLiteDB
+
     {
         private BancoContextSQLite Banco { get; set; }
 

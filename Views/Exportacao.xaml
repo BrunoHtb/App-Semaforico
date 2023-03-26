@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cadastroSemaforico.Views.Exportacao"
              Title="ENVIAR DADOS">
-    
+
     <VerticalStackLayout
         Margin="0, 0, 0, 20">
 
         <Grid
             ColumnDefinitions="*, 60"
+            RowDefinitions="*, *"
             BackgroundColor="#808080"
             HeightRequest="150" 
             Padding="20,0,0,20">
@@ -20,8 +21,8 @@
                 FontAttributes="Bold"
                 Grid.Column="0" 
                 Grid.Row="0" />
-
             <Label
+                x:Name="LabelTotalRegistro"
                 Text="0"
                 VerticalTextAlignment="Center"
                 TextColor="#FFF"
@@ -30,17 +31,33 @@
                 HorizontalTextAlignment="Start"
                 Grid.Column="1" 
                 Grid.Row="0" />
+
+            <Label
+                Text="Total de arquivos enviados: "
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                Grid.Column="0" 
+                Grid.Row="1" />
+            <Label
+                x:Name="LabelTotalRegistroEnviados"
+                Text="0"
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                Grid.Column="1" 
+                Grid.Row="1" />
         </Grid>
-        
+
         <Grid 
             RowDefinitions="150, 150"
             Margin="0, 50, 0, 0" >
-            
+
             <Button 
-<<<<<<< HEAD
                 Clicked="OnButtonClicked_To_Export"
-=======
->>>>>>> 531d3bd391d4dd4b83f28915752e54e0678e2dd7
                 Text="ATUALIZAR BANCO  DE DADOS"
                 WidthRequest="300"
                 HeightRequest="100"
@@ -53,10 +70,7 @@
                 ImageSource="refresh.svg"      
                 Grid.Row="0" />
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 531d3bd391d4dd4b83f28915752e54e0678e2dd7
             <Button
                 Clicked="OnButtonClicked_To_Menu"
                 Text="VOLTAR"
@@ -68,7 +82,7 @@
                 FontSize="20"
                 Margin="20"            
                 Grid.Row="1" />
-            
+
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
