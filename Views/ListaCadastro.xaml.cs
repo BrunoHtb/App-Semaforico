@@ -7,6 +7,7 @@ namespace cadastroSemaforico.Views;
 public partial class ListaCadastro : ContentPage
 {
     CadastroSemaforico _cadastroSemaforico;
+
 	public ListaCadastro()
 	{
 		InitializeComponent();
@@ -15,7 +16,7 @@ public partial class ListaCadastro : ContentPage
         Task.Run(() => {
             //Coloca na thread principal e com a parte visual
             Device.BeginInvokeOnMainThread(async () => {
-                CVListaCadastro.ItemsSource = await new CadastroDB().PesquisarAsync();
+                CVListaCadastro.ItemsSource = await new CadastroSQLiteDB().PesquisarAsync();
             });         
         });
 
@@ -54,4 +55,5 @@ public partial class ListaCadastro : ContentPage
         }
         catch(Exception ex) { }
     }
+
 }
