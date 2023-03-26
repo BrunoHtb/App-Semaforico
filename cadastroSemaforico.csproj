@@ -53,15 +53,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="Context\**" />
-	  <Compile Remove="Context\**" />
-	  <EmbeddedResource Remove="Context\**" />
-	  <MauiCss Remove="Context\**" />
-	  <MauiXaml Remove="Context\**" />
-	  <None Remove="Context\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Resources\Images\camera.svg" />
 	  <None Remove="Resources\Images\fotografia.png" />
 	  <None Remove="Resources\Images\galeria.png" />
@@ -97,6 +88,10 @@
 	  <MauiXaml Update="Views\PopupFoto.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Context\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -4,7 +4,6 @@
              x:Class="cadastroSemaforico.Views.ListaCadastro"
              Title="Elementos Semafórico">
     <VerticalStackLayout>
-        
         <ScrollView>
             <CollectionView 
                 x:Name="CVListaCadastro" 

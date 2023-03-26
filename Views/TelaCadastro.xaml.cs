@@ -8,7 +8,6 @@ namespace cadastroSemaforico.Views;
 public partial class Cadastro : ContentPage
 {
     private CadastroSemaforico _cadastroSemaforico;
-    private List<DadoLogin> _lista;
     private bool update;
     CancellationTokenSource _cancelTokenSource;
     bool _isCheckingLocation;
@@ -24,7 +23,6 @@ public partial class Cadastro : ContentPage
         update = false;
         _cadastroSemaforico = new CadastroSemaforico();
         _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
-        GetDadosLogin();
     }
 
     public Cadastro(CadastroSemaforico cadastroSemaforico)
@@ -34,16 +32,8 @@ public partial class Cadastro : ContentPage
         update = true;
         _cadastroSemaforico = cadastroSemaforico;
         FillFields();
-        GetDadosLogin();
     }
-
-    private async void GetDadosLogin()
-    {
-        _lista = await new CadastroDB().PesquisarLoginAsync();
-        EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
-    }
-
-    private async void FillFields()
+    private void FillFields()
     {
         EntryRodovia.Text = _cadastroSemaforico.Rodovia;
         PckDR.SelectedItem = _cadastroSemaforico.Regional;
@@ -90,7 +80,7 @@ public partial class Cadastro : ContentPage
             return;
         }
 
-        //TODO - Validação dos dados da Tela de Cadastro
+        //TODO - Validação dos dados
         _cadastroSemaforico.Rodovia = EntryRodovia.Text;
         _cadastroSemaforico.Regional = (PckDR.SelectedIndex == -1) ? "" : PckDR.Items[PckDR.SelectedIndex];
         _cadastroSemaforico.Sentido = (PckSentido.SelectedIndex == -1) ? "" : PckSentido.Items[PckSentido.SelectedIndex];
@@ -113,11 +103,6 @@ public partial class Cadastro : ContentPage
         _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
         _cadastroSemaforico.CodigoElemento = GetCode_Register();
         _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
-        
-        //Salvando Informações da tela de Login
-        _cadastroSemaforico.IdDispositivo = _lista.FirstOrDefault().IdDispositivo;
-        _cadastroSemaforico.NomeUsuario = _lista.FirstOrDefault().NomeUsuario;
-        _cadastroSemaforico.Auditoria = Int32.Parse(EntryAuditoria.Text);
 
         //TODO - Salvar a Tarefa no Banco
         if (update)
