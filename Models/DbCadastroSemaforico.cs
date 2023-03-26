@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace cadastroSemaforico.Models
 {
-    public class DbCadastroSemaforico
+    public class SemaforicoPostgreSQLDB
+
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ss_id { get; set; }
         public string regional_der { get; set; }
         public string rodovia { get; set; }

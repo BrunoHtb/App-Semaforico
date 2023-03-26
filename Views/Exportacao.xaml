@@ -2,70 +2,87 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cadastroSemaforico.Views.Exportacao"
-             Title="Enviar e receber dados">
-    <VerticalStackLayout>
+             Title="ENVIAR DADOS">
 
-        <Grid>
-        <Label
-            Margin="20"
-            FontSize="20"
-            Text="Total de arquivos no diretório: 0" />
-        </Grid>
-        <Grid>
-        <Label
-            Margin="20"
-            FontSize="20"
-            Text="Total de arquivos no diretório: 0"
-            />
-        </Grid>
-        
-        <Label Margin="10"/>
-            
-        <Grid>
-        <Label
-            Margin="20"
-            FontSize="20"
-            Text="Total de arquivos no diretório: 0" 
-            />
-        </Grid>
-        <Grid>
-        <Label
-            Margin="20"
-            FontSize="20"
-            Text="Total de arquivos no diretório: 0"
-            />
+    <VerticalStackLayout
+        Margin="0, 0, 0, 20">
+
+        <Grid
+            ColumnDefinitions="*, 60"
+            RowDefinitions="*, *"
+            BackgroundColor="#808080"
+            HeightRequest="150" 
+            Padding="20,0,0,20">
+            <Label
+                Text="Total de arquivos no diretório: "
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                Grid.Column="0" 
+                Grid.Row="0" />
+            <Label
+                x:Name="LabelTotalRegistro"
+                Text="0"
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                Grid.Column="1" 
+                Grid.Row="0" />
+
+            <Label
+                Text="Total de arquivos enviados: "
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                Grid.Column="0" 
+                Grid.Row="1" />
+            <Label
+                x:Name="LabelTotalRegistroEnviados"
+                Text="0"
+                VerticalTextAlignment="Center"
+                TextColor="#FFF"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                Grid.Column="1" 
+                Grid.Row="1" />
         </Grid>
 
-        <Label 
-            Margin="15"
-            />
+        <Grid 
+            RowDefinitions="150, 150"
+            Margin="0, 50, 0, 0" >
 
-        <Grid>
-        <Button 
-            WidthRequest="300"
-            HeightRequest="100"
-            FontAttributes="Bold"
-            BackgroundColor="#FFFF00"                      
-            Margin="20"
-            FontSize="20"
-            TextColor="Black"
-            LineBreakMode="WordWrap"
-            ImageSource="refresh.svg"
-            Text="ATUALIZAR BANCO  DE DADOS"
-            />
+            <Button 
+                Clicked="OnButtonClicked_To_Export"
+                Text="ATUALIZAR BANCO  DE DADOS"
+                WidthRequest="300"
+                HeightRequest="100"
+                FontAttributes="Bold"
+                BackgroundColor="#FFFF00"                      
+                Margin="20"
+                FontSize="20"
+                TextColor="Black"
+                LineBreakMode="WordWrap"
+                ImageSource="refresh.svg"      
+                Grid.Row="0" />
+
+
+            <Button
+                Clicked="OnButtonClicked_To_Menu"
+                Text="VOLTAR"
+                WidthRequest="300"
+                HeightRequest="100"
+                BackgroundColor="#FF2020"
+                TextColor="Black"
+                FontAttributes="Bold"
+                FontSize="20"
+                Margin="20"            
+                Grid.Row="1" />
+
         </Grid>
-              
-        <Button
-            WidthRequest="300"
-            HeightRequest="100"
-            BackgroundColor="#FF2020"
-            TextColor="Black"
-            FontAttributes="Bold"
-            FontSize="20"
-            Margin="20"
-            Text="VOLTAR"
-            Clicked="OnButtonClicked_To_Menu"
-            />
-
     </VerticalStackLayout>
 </ContentPage>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="cadastroSemaforico.Views.Login"
-             Title="Login">
+             x:Class="cadastroSemaforico.Views.Login">
     <VerticalStackLayout>
         <ScrollView>
             <StackLayout>
@@ -13,48 +12,78 @@
                         HorizontalOptions="Start" 
                         Grid.Column="0" 
                         Grid.Row="0"/>
-
                 </Grid>
 
-                <Label
-                    Text=" ID Dispositivo" 
-                    FontSize="20"/>
+                <StackLayout 
+                    Margin="40, 30"
+                    Padding="0, 30"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        Text=" ID Dispositivo" 
+                        FontSize="20" />
+                    <Entry 
+                        x:Name="EntryID"
+                        Placeholder="Informe o ID do Dispositivo"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        Keyboard="Numeric" 
+                        HorizontalTextAlignment="Center"
+                        ClearButtonVisibility="WhileEditing"
+                        Margin="0, 15, 0, 0" />
 
-                <Entry 
-                    x:Name="EntryID"
-                    Text=" Informe o ID do Dispositivo" />
+                    <Label
+                        Text=" Nome usuário"
+                        FontSize="20" 
+                        Margin="0, 40, 0, 0"/>
+                    <Entry 
+                        x:Name="EntryUsuario"
+                        Placeholder="Informe nome do usuário" 
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center"
+                        ClearButtonVisibility="WhileEditing"
+                        Margin="0, 15, 0, 0" />
+                </StackLayout>
 
-                <Label
-                    Text=" Nome usuário" />
-                <Entry 
-                    x:Name="EntryUsuario"
-                    Text=" Informe nome do usuário" />
+                <BoxView 
+                    Color="Gray"
+                    HeightRequest="1"
+                    WidthRequest="1000"
+                    CornerRadius="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Margin="0,0,0,30"
+                    IsEnabled="false" />
 
-                <Label/>
+                <StackLayout
+                    Margin="40, 20"
+                    Padding="0, 30"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        Text=" Auditoria"
+                        FontSize="20" />
+                    <Entry
+                        x:Name="EntryAuditoria"
+                        Placeholder="Informe a auditoria"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center"
+                        Keyboard="Numeric" 
+                        ClearButtonVisibility="WhileEditing"
+                        MaxLength="4" />
 
-                <Label
-                    Text=" ---------------------------------------------------------------------------------" />
+                    <Button
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        BackgroundColor="#00FF00"
+                        Margin="20"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Clicked="OnButtonClicked_To_Menu"
+                        Text="ENTRAR"
+                        FontSize="20" />
+                </StackLayout>
 
-
-                <Label
-                    Text=" Auditoria" />
-                <Entry
-                    x:Name="EntryAuditoria"
-                    Text="Informe a auditoria" />
-
-                <Label Margin="10"/>
-
-                <Button
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    BackgroundColor="#FFFF00"
-                    Margin="20"
-                    TextColor="Black"
-                    FontAttributes="Bold"
-                    Clicked="OnButtonClicked_To_Menu"
-                    Text="Entrar" />
-                
-                
             </StackLayout>
         </ScrollView>
     </VerticalStackLayout>

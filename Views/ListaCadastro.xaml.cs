@@ -15,7 +15,7 @@ public partial class ListaCadastro : ContentPage
         Task.Run(() => {
             //Coloca na thread principal e com a parte visual
             Device.BeginInvokeOnMainThread(async () => {
-                CVListaCadastro.ItemsSource = await new CadastroDB().PesquisarAsync();
+                CVListaCadastro.ItemsSource = await new CadastroSQLiteDB().PesquisarAsync();
             });         
         });
 

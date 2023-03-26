@@ -8,6 +8,7 @@ namespace cadastroSemaforico.Views;
 public partial class Cadastro : ContentPage
 {
     private CadastroSemaforico _cadastroSemaforico;
+    private List<DadoLogin> _lista;
     private bool update;
     CancellationTokenSource _cancelTokenSource;
     bool _isCheckingLocation;
@@ -15,7 +16,6 @@ public partial class Cadastro : ContentPage
     private string _nomeFotoDetalhe1 = "";
     private string _nomeFotoDetalhe2 = "";
     private string _dateRegisterBegin;
-
     public Cadastro()
 	{
 		InitializeComponent();
@@ -23,6 +23,7 @@ public partial class Cadastro : ContentPage
         update = false;
         _cadastroSemaforico = new CadastroSemaforico();
         _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
+        GetDadosLogin();
     }
 
     public Cadastro(CadastroSemaforico cadastroSemaforico)
@@ -32,6 +33,11 @@ public partial class Cadastro : ContentPage
         update = true;
         _cadastroSemaforico = cadastroSemaforico;
         FillFields();
+    }
+    private async void GetDadosLogin()
+    {
+        _lista = await new CadastroSQLiteDB().PesquisarLoginAsync();
+        EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
     }
     private void FillFields()
     {
@@ -104,19 +110,23 @@ public partial class Cadastro : ContentPage
         _cadastroSemaforico.CodigoElemento = GetCode_Register();
         _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
 
+        //Salvando Informações da tela de Login
+        _cadastroSemaforico.IdDispositivo = _lista.FirstOrDefault().IdDispositivo;
+        _cadastroSemaforico.NomeUsuario = _lista.FirstOrDefault().NomeUsuario;
+        _cadastroSemaforico.Auditoria = Int32.Parse(EntryAuditoria.Text);
+
         //TODO - Salvar a Tarefa no Banco
         if (update)
         {
-            await new CadastroDB().AtualizarAsync(_cadastroSemaforico);
+            await new CadastroSQLiteDB().AtualizarAsync(_cadastroSemaforico);
         }
         else
         {
-            await new CadastroDB().CadastrarAsync(_cadastroSemaforico);
+            await new CadastroSQLiteDB().CadastrarAsync(_cadastroSemaforico);
         }
-
         //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
         await DisplayAlert("Dados Salvos", "As informações foram salvas com sucesso", "OK");
-        await App.Current.MainPage.Navigation.PushAsync(new ListaCadastro());
+        await Navigation.PopAsync();
     }
 
     private async void OnClick_To_GetCoordinates(object sender, EventArgs e)

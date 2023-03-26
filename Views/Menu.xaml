@@ -16,7 +16,8 @@
 
                 </Grid>
                 <Label Margin="30"></Label>
-                <Button
+                <Button                    
+                    Clicked="Clicked_To_ListaCadastro"
                     WidthRequest="300"
                     HeightRequest="100"
                     FontAttributes="Bold"
@@ -26,11 +27,11 @@
                     LineBreakMode="WordWrap"
                     Text="CADASTRO DE SEMAFÓRICO"
                     FontSize="20"
-                    Clicked="Clicked_To_ListaCadastro"
                     Margin="20"
                     />
-
+ 
                 <Button 
+                    Clicked="Clicked_To_Login"
                     WidthRequest="300"
                     HeightRequest="100"
                     FontAttributes="Bold"
@@ -44,12 +45,12 @@
                     />
 
                 <Button 
+                    Clicked="Clicked_To_Exportacao"
                     WidthRequest="300"
                     HeightRequest="100"
                     FontAttributes="Bold"
                     ImageSource="upload.svg"
                     BackgroundColor="#FF2020"
-                    Clicked="Clicked_To_Exportacao"
                     Margin="20"
                     FontSize="20"
                     TextColor="Black"
