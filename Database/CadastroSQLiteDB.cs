@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace cadastroSemaforico.Database
 {
-    public class CadastroDB
+    public class CadastroSQLiteDB
     {
-        private BancoContext Banco { get; set; }
+        private BancoContextSQLite Banco { get; set; }
 
-        public CadastroDB()
+        public CadastroSQLiteDB()
         {
-            Banco = new BancoContext();
+            Banco = new BancoContextSQLite();
         }
 
         //Retorna a lista toda
@@ -51,5 +51,32 @@ namespace cadastroSemaforico.Database
         {
             return await Banco.CadastrosSemaforico.FindAsync(id);
         }
+
+
+        /* --------------------------------------------------------------------------------------------------------- */
+        /*                                              LOGIN                                                        */
+        /* --------------------------------------------------------------------------------------------------------- */
+        //Cadastra elemento novo LOGIN
+        public async Task<bool> CadastrarLoginAsync(DadoLogin dadosLogin)
+        {
+            Banco.DadosLogin.Add(dadosLogin);
+            int linhas = await Banco.SaveChangesAsync();
+            return (linhas > 0) ? true : false;
+        }
+
+        //Edita elemento novo LOGIN
+        public async Task<bool> AtualizarLoginAsync(DadoLogin dadosLogin)
+        {
+            Banco.DadosLogin.Update(dadosLogin);
+            int linhas = await Banco.SaveChangesAsync();
+            return (linhas > 0) ? true : false;
+        }
+
+        //Retorna a lista toda
+        public async Task<List<DadoLogin>> PesquisarLoginAsync()
+        {
+            return await Banco.DadosLogin.ToListAsync();
+        }
+
     }
 }

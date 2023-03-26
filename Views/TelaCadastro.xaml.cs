@@ -35,6 +35,12 @@ public partial class Cadastro : ContentPage
     }
     private void FillFields()
     {
+        _lista = await new CadastroDB().PesquisarLoginAsync();
+        EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
+    }
+
+    private async void FillFields()
+    {
         EntryRodovia.Text = _cadastroSemaforico.Rodovia;
         PckDR.SelectedItem = _cadastroSemaforico.Regional;
         PckSentido.SelectedItem = _cadastroSemaforico.Sentido;
@@ -107,16 +113,16 @@ public partial class Cadastro : ContentPage
         //TODO - Salvar a Tarefa no Banco
         if (update)
         {
-            await new CadastroDB().AtualizarAsync(_cadastroSemaforico);
+            await new CadastroSQLiteDB().AtualizarAsync(_cadastroSemaforico);
         }
         else
         {
-            await new CadastroDB().CadastrarAsync(_cadastroSemaforico);
+            await new CadastroSQLiteDB().CadastrarAsync(_cadastroSemaforico);
         }
 
         //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
         await DisplayAlert("Dados Salvos", "As informações foram salvas com sucesso", "OK");
-        await App.Current.MainPage.Navigation.PushAsync(new ListaCadastro());
+        await Navigation.PopAsync();
     }
 
     private async void OnClick_To_GetCoordinates(object sender, EventArgs e)

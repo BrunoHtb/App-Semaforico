@@ -9,7 +9,7 @@ public partial class Menu : ContentPage
 
     private async void Clicked_To_ListaCadastro(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ListaCadastro());
+        await Navigation.PushAsync(new ListaCadastro(), false);
     }
 
     private async void Clicked_To_Exportacao(object sender, EventArgs e)
