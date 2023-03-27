@@ -4,6 +4,23 @@
              x:Class="cadastroSemaforico.Views.ListaCadastro"
              Title="Elementos Semafórico">
     <VerticalStackLayout>
+        <Frame
+            BackgroundColor="{StaticResource Primary}"
+            BorderColor="Black"
+            HeightRequest="120">
+            <Grid
+                ColumnDefinitions="*, *, *"
+                RowDefinitions="*, *" >
+
+                <Label  
+                    x:Name="LabelTotalElementos"
+                    Text="Total: "
+                    Grid.Row="1"
+                    Grid.Column="0"/>
+
+            </Grid>
+        </Frame>
+        
         <ScrollView>
             <CollectionView 
                 x:Name="CVListaCadastro" 

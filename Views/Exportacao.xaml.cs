@@ -32,6 +32,7 @@ public partial class Exportacao : ContentPage
     private async void OnButtonClicked_To_Export(object sender, EventArgs e)
     {
         int contador = 0;
+
         _listCadastrosPostgres = new List<SemaforicoPostgreSQLDB>();
 
         foreach (CadastroSemaforico cadastro in _listRegistros.Result)
@@ -61,7 +62,7 @@ public partial class Exportacao : ContentPage
             _cadastroPostgres.obs_an = cadastro.ObservacaoAN;
             _cadastroPostgres.observacao = cadastro.Observacao;
             _cadastroPostgres.usuariologado = cadastro.NomeUsuario;
-            _cadastroPostgres.status_interno = "Exportado";
+            _cadastroPostgres.status_interno = cadastro.StatusInterno;
             _cadastroPostgres.empresa = "";
             _cadastroPostgres.alteracao_dia = "";
             _cadastroPostgres.observacao_sistema = "";
@@ -78,9 +79,55 @@ public partial class Exportacao : ContentPage
 
         foreach (CadastroSemaforico cadastro in _listRegistros.Result)
         {
-            contador += 1;
-            await new CadastroSQLiteDB().ExcluirAsync(cadastro.Id);
+            CreateBackup(cadastro);
+
+            contador += 1; 
             LabelTotalRegistroEnviados.Text = contador.ToString();
+            await new CadastroSQLiteDB().ExcluirAsync(cadastro.Id);      
+        }
+
+        await DisplayAlert("Aviso", "Banco de dados atualizado com SUCESSO", "OK");
+    }
+
+    private void CreateBackup(CadastroSemaforico cadastro)
+    {
+        string nomeArquivo;
+        string caminhoArquivo;
+
+        nomeArquivo = cadastro.CodigoElemento + ".txt";
+        caminhoArquivo = Path.Combine(Constantes.CaminhoDiretorioSave, nomeArquivo);
+
+        using (StreamWriter writer = new StreamWriter(caminhoArquivo))
+        {
+            writer.WriteLine(
+                cadastro.Id + ";" +
+                cadastro.Rodovia + ";" +
+                cadastro.Regional + ";" +
+                cadastro.Sentido + ";" +
+                cadastro.LadoPista + ";" +
+                cadastro.AtendimentoNorma + ";" +
+                cadastro.ObservacaoAN + ";" +
+                cadastro.KM + ";" +
+                cadastro.Destinacao + ";" +
+                cadastro.TipoSinalizacao + ";" +
+                cadastro.FormaFoco + ";" +
+                cadastro.IndicacaoLuminosa + ";" +
+                cadastro.SequenciaLuminosa + ";" +
+                cadastro.EstadoConservacao + ";" +
+                cadastro.ObservacaoEC + ";" +
+                cadastro.Observacao + ";" +
+                cadastro.Latitude + ";" +
+                cadastro.Longitude + ";" +
+                cadastro.FotoPanoramica + ";" +
+                cadastro.FotoDetalhe1 + ";" +
+                cadastro.FotoDetalhe2 + ";" +
+                cadastro.CodigoElemento + ";" +
+                cadastro.StatusInterno + ";" +
+                cadastro.IdDispositivo + ";" +
+                cadastro.NomeUsuario + ";" +
+                cadastro.Auditoria + ";" +
+                cadastro.DataCadastro
+                );
         }
     }
 

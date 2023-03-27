@@ -13,6 +13,7 @@ public partial class Login : ContentPage
         InitializeComponent();
 
         VerifyDB();
+        Constantes.CriarDiretorio();
     }
 
     private async void VerifyDB()

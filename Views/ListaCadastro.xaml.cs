@@ -2,35 +2,47 @@ using cadastroSemaforico.Database;
 using cadastroSemaforico.Models;
 using Microsoft.Maui.Controls;
 
+
 namespace cadastroSemaforico.Views;
 
 public partial class ListaCadastro : ContentPage
 {
     CadastroSemaforico _cadastroSemaforico;
-
-	public ListaCadastro()
+    public ListaCadastro()
 	{
-		InitializeComponent();
+		InitializeComponent();    
+    }
 
-        //Executa em uma thread de forma paralela
-        Task.Run(() => {
+    [Obsolete]
+    protected override async void OnAppearing()
+    {
+        try
+        {
+            base.OnAppearing();
+
             //Coloca na thread principal e com a parte visual
             Device.BeginInvokeOnMainThread(async () => {
                 CVListaCadastro.ItemsSource = await new CadastroSQLiteDB().PesquisarAsync();
-            });         
-        });
-
-        CreateDirectory();
-    }
-    private void CreateDirectory()
-    {
-        var root = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        string path = root + "/Semaforico";
-        if (!Directory.Exists(path))
+                CountElement(); 
+                LabelTotalElementos.Text = "Total: " + CountElement().ToString();
+            });
+        }
+        catch (Exception ex)
         {
-            Directory.CreateDirectory(path);
+            await DisplayAlert("Aviso!", "Sistema de coleta " + ex.Message, "OK");
         }
     }
+    private int CountElement()
+    {
+        int contador = 0;
+
+        foreach (var item in CVListaCadastro.ItemsSource)
+        {
+            contador++;
+        }
+        return contador;
+    }
+
     private async void OnButtonClicked_To_CadastroNovo(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new Cadastro());
@@ -38,7 +50,7 @@ public partial class ListaCadastro : ContentPage
 
     private void Selection_Item_Changed(object sender, SelectionChangedEventArgs e)
     {
-        if(e.CurrentSelection.FirstOrDefault() is CadastroSemaforico selectedItem)
+        if (e.CurrentSelection.FirstOrDefault() is CadastroSemaforico selectedItem)
         {
             LabelRodovia.Text = selectedItem.Rodovia;
             LabelCodigoElemento.Text = selectedItem.CodigoElemento;
@@ -53,7 +65,10 @@ public partial class ListaCadastro : ContentPage
         {
             await Navigation.PushAsync(new Cadastro(_cadastroSemaforico));
         }
-        catch(Exception ex) { }
+        catch(Exception ex) 
+        {
+            await DisplayAlert("Aviso!", "Erro " + ex.Message, "FECHAR");
+        }
     }
 
 }

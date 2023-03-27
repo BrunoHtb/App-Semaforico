@@ -31,7 +31,6 @@ namespace cadastroSemaforico.Models
         public string FotoDetalhe1 { get; set; }
         public string FotoDetalhe2 { get; set; }
         public string CodigoElemento { get; set; }
-        public string Usuario { get; set; }
         public string StatusInterno { get; set; }
         public int IdDispositivo { get; set; }
         public string NomeUsuario { get; set; }

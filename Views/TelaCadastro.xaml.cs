@@ -2,6 +2,7 @@
 using cadastroSemaforico.Models;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
 using CommunityToolkit.Maui.Views;
+using cadastroSemaforico.Static;
 
 namespace cadastroSemaforico.Views;
 
@@ -11,11 +12,12 @@ public partial class Cadastro : ContentPage
     private List<DadoLogin> _lista;
     private bool update;
     CancellationTokenSource _cancelTokenSource;
-    bool _isCheckingLocation;
+    private bool _isCheckingLocation;
     private string _nomeFotoPanoramica = "";
     private string _nomeFotoDetalhe1 = "";
     private string _nomeFotoDetalhe2 = "";
     private string _dateRegisterBegin;
+
     public Cadastro()
 	{
 		InitializeComponent();
@@ -23,6 +25,13 @@ public partial class Cadastro : ContentPage
         update = false;
         _cadastroSemaforico = new CadastroSemaforico();
         _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
+
+        if (!string.IsNullOrEmpty(VariaveisEstaticas.Regional) && !string.IsNullOrEmpty(VariaveisEstaticas.Rodovia))
+        {
+            EntryRodovia.Text = VariaveisEstaticas.Rodovia;
+            PckDR.SelectedItem = VariaveisEstaticas.Regional;
+        }
+
         GetDadosLogin();
     }
 
@@ -34,18 +43,14 @@ public partial class Cadastro : ContentPage
         _cadastroSemaforico = cadastroSemaforico;
         FillFields();
     }
+
     private async void GetDadosLogin()
     {
         _lista = await new CadastroSQLiteDB().PesquisarLoginAsync();
         EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
     }
-    private void FillFields()
-    {
-        _lista = await new CadastroDB().PesquisarLoginAsync();
-        EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
-    }
 
-    private async void FillFields()
+    private void FillFields()
     {
         EntryRodovia.Text = _cadastroSemaforico.Rodovia;
         PckDR.SelectedItem = _cadastroSemaforico.Regional;
@@ -86,53 +91,68 @@ public partial class Cadastro : ContentPage
 
     private async void OnClick_To_Save(object sender, EventArgs e)
     {
-        if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
+        try
         {
-            await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
-            return;
+            if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
+            {
+                await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
+                return;
+            }
+
+            //TODO - Validação dos dados
+            _cadastroSemaforico.Rodovia = EntryRodovia.Text;
+            _cadastroSemaforico.Regional = (PckDR.SelectedIndex == -1) ? "" : PckDR.Items[PckDR.SelectedIndex];
+            _cadastroSemaforico.Sentido = (PckSentido.SelectedIndex == -1) ? "" : PckSentido.Items[PckSentido.SelectedIndex];
+            _cadastroSemaforico.LadoPista = (PckLadoDaPista.SelectedIndex == -1) ? "" : PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex];
+            _cadastroSemaforico.AtendimentoNorma = (PckAtendimentoNorma.SelectedIndex == -1) ? "" : PckAtendimentoNorma.Items[PckAtendimentoNorma.SelectedIndex];
+            _cadastroSemaforico.ObservacaoAN = EntryObsAN.Text;
+            _cadastroSemaforico.KM = EntryKM.Text;
+            _cadastroSemaforico.Destinacao = (PckDestinacao.SelectedIndex == -1) ? "" : PckDestinacao.Items[PckDestinacao.SelectedIndex];
+            _cadastroSemaforico.TipoSinalizacao = (PckTipoSinalizacao.SelectedIndex == -1) ? "" : PckTipoSinalizacao.Items[PckTipoSinalizacao.SelectedIndex];
+            _cadastroSemaforico.FormaFoco = (PckForma.SelectedIndex == -1) ? "" : PckForma.Items[PckForma.SelectedIndex];
+            _cadastroSemaforico.IndicacaoLuminosa = (PckIndicacaoLuminosa.SelectedIndex == -1) ? "" : PckIndicacaoLuminosa.Items[PckIndicacaoLuminosa.SelectedIndex];
+            _cadastroSemaforico.SequenciaLuminosa = (PckSequencia.SelectedIndex == -1) ? "" : PckSequencia.Items[PckSequencia.SelectedIndex];
+            _cadastroSemaforico.EstadoConservacao = (PckEstadoConservacao.SelectedIndex == -1) ? "" : PckEstadoConservacao.Items[PckEstadoConservacao.SelectedIndex];
+            _cadastroSemaforico.ObservacaoEC = EntryObsEC.Text;
+            _cadastroSemaforico.Observacao = EntryObs.Text;
+            _cadastroSemaforico.Latitude = EntryLatitude.Text;
+            _cadastroSemaforico.Longitude = EntryLongitude.Text;
+            _cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
+            _cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
+            _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
+            _cadastroSemaforico.CodigoElemento = GetCode_Register();
+            _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
+            _cadastroSemaforico.StatusInterno = "NOVO";
+
+            //Salvando Informações da tela de Login
+            _cadastroSemaforico.IdDispositivo = _lista.FirstOrDefault().IdDispositivo;
+            _cadastroSemaforico.NomeUsuario = _lista.FirstOrDefault().NomeUsuario;
+            _cadastroSemaforico.Auditoria = Int32.Parse(EntryAuditoria.Text);
+
+            //TODO - Salvar a Tarefa no Banco
+            if (update)
+            {
+                await new CadastroSQLiteDB().AtualizarAsync(_cadastroSemaforico);
+            }
+            else
+            {
+                //Salvando Rodovia e Regional na classe estatica
+                VariaveisEstaticas.Regional = _cadastroSemaforico.Regional;
+                VariaveisEstaticas.Rodovia = _cadastroSemaforico.Rodovia;
+
+                await new CadastroSQLiteDB().CadastrarAsync(_cadastroSemaforico);
+            }
+            //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
+            await DisplayAlert("Dados Salvos", "As informações foram salvas com sucesso", "OK");
         }
-
-        //TODO - Validação dos dados
-        _cadastroSemaforico.Rodovia = EntryRodovia.Text;
-        _cadastroSemaforico.Regional = (PckDR.SelectedIndex == -1) ? "" : PckDR.Items[PckDR.SelectedIndex];
-        _cadastroSemaforico.Sentido = (PckSentido.SelectedIndex == -1) ? "" : PckSentido.Items[PckSentido.SelectedIndex];
-        _cadastroSemaforico.LadoPista = (PckLadoDaPista.SelectedIndex == -1) ? "" : PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex];
-        _cadastroSemaforico.AtendimentoNorma = (PckAtendimentoNorma.SelectedIndex == -1) ? "" : PckAtendimentoNorma.Items[PckAtendimentoNorma.SelectedIndex];
-        _cadastroSemaforico.ObservacaoAN = EntryObsAN.Text;
-        _cadastroSemaforico.KM = EntryKM.Text;
-        _cadastroSemaforico.Destinacao = (PckDestinacao.SelectedIndex == -1) ? "" : PckDestinacao.Items[PckDestinacao.SelectedIndex];
-        _cadastroSemaforico.TipoSinalizacao = (PckTipoSinalizacao.SelectedIndex == -1) ? "" : PckTipoSinalizacao.Items[PckTipoSinalizacao.SelectedIndex];
-        _cadastroSemaforico.FormaFoco = (PckForma.SelectedIndex == -1) ? "" : PckForma.Items[PckForma.SelectedIndex];
-        _cadastroSemaforico.IndicacaoLuminosa = (PckIndicacaoLuminosa.SelectedIndex == -1) ? "" : PckIndicacaoLuminosa.Items[PckIndicacaoLuminosa.SelectedIndex];
-        _cadastroSemaforico.SequenciaLuminosa = (PckSequencia.SelectedIndex == -1) ? "" : PckSequencia.Items[PckSequencia.SelectedIndex];
-        _cadastroSemaforico.EstadoConservacao = (PckEstadoConservacao.SelectedIndex == -1) ? "" : PckEstadoConservacao.Items[PckEstadoConservacao.SelectedIndex];
-        _cadastroSemaforico.ObservacaoEC = EntryObsEC.Text;
-        _cadastroSemaforico.Observacao = EntryObs.Text;
-        _cadastroSemaforico.Latitude = EntryLatitude.Text;
-        _cadastroSemaforico.Longitude = EntryLongitude.Text;
-        _cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
-        _cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
-        _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
-        _cadastroSemaforico.CodigoElemento = GetCode_Register();
-        _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
-
-        //Salvando Informações da tela de Login
-        _cadastroSemaforico.IdDispositivo = _lista.FirstOrDefault().IdDispositivo;
-        _cadastroSemaforico.NomeUsuario = _lista.FirstOrDefault().NomeUsuario;
-        _cadastroSemaforico.Auditoria = Int32.Parse(EntryAuditoria.Text);
-
-        //TODO - Salvar a Tarefa no Banco
-        if (update)
+        catch(Exception ex)
         {
-            await new CadastroSQLiteDB().AtualizarAsync(_cadastroSemaforico);
+            await DisplayAlert("Aviso!", "Erro " + ex.Message, "FECHAR");
         }
-        else
+        finally
         {
-            await new CadastroSQLiteDB().CadastrarAsync(_cadastroSemaforico);
-        }
-        //TODO - MessagingCenter Retornar a Tarefa para a tela de listagem.
-        await DisplayAlert("Dados Salvos", "As informações foram salvas com sucesso", "OK");
-        await Navigation.PopAsync();
+            await Navigation.PopAsync();
+        }    
     }
 
     private async void OnClick_To_GetCoordinates(object sender, EventArgs e)
@@ -149,6 +169,7 @@ public partial class Cadastro : ContentPage
         }
         catch (Exception ex)
         {
+            await DisplayAlert("Aviso!", "Erro " + ex.Message, "FECHAR");
         }
         finally
         {
@@ -180,42 +201,32 @@ public partial class Cadastro : ContentPage
         var page = new PopupFoto();
         this.ShowPopup(page);
         var result = await page.Show();
- 
+        FileResult photo;
         if (!result && page.opcao)
         {
-            GetPhoto_To_Camera(ultimoDigito);
+            photo = await MediaPicker.Default.CapturePhotoAsync();
         }
         else
         {
-            GetPhoto_To_Gallery(ultimoDigito);
+            photo = await MediaPicker.Default.PickPhotoAsync();
         }
-        page.Close();
-        
+
+        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
+        page.Close();      
     }
 
-    private async void GetPhoto_To_Camera(int ultimoDigito)
-    {
-        FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
-    }
-    private async void GetPhoto_To_Gallery(int ultimoDigito)
-    {
-        FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
-    }
     private async void NamePhoto_And_SaveDirectory(FileResult photo, int ultimoDigito)
     {
         try
         {
-            string nomeFoto = "Semaforica_DR" + GetCode_Register();
+            string nomeFoto = "Semaforica_DR" + GetCode_Register() + "_" + _dateRegisterBegin;
 
             if (photo != null)
             {
                 nomeFoto += "_" + ultimoDigito + ".jpg";
                 photo.FileName = nomeFoto;
 
-                string appDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string photosDir = Path.Combine(appDir, "Semaforico");
+                string photosDir = Constantes.CaminhoDiretorioSave;
 
                 string localFilePath = Path.Combine(photosDir, photo.FileName);
 
@@ -233,7 +244,10 @@ public partial class Cadastro : ContentPage
                 return;
             }
         }
-        catch { }
+        catch(Exception ex) 
+        {
+            await DisplayAlert("Aviso!", "Erro " + ex.Message, "FECHAR");
+        }
     }
 
     private void Button_Take_PhotoOK(int ultimoDigito, string nomeFoto) 
@@ -260,6 +274,7 @@ public partial class Cadastro : ContentPage
         selectButton.BackgroundColor = Color.FromRgb(50, 205, 50);
         selectButton.TextColor = Color.FromRgb(255, 255, 255);
     }
+
     private void Button_Take_PhotoClear(int ultimoDigito)
     {
         Button selectButton;
@@ -286,8 +301,7 @@ public partial class Cadastro : ContentPage
     private string GetCode_Register()
     {
         return PckDR.Items[PckDR.SelectedIndex] + "_" + EntryRodovia.Text.ToUpper().Replace(" ", "") + "_KM_" + EntryKM.Text +
-            "_" + PckSentido.Items[PckSentido.SelectedIndex].Substring(0, 3) + "_" + PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex].Substring(0, 1) +
-            _dateRegisterBegin;
+            "_" + PckSentido.Items[PckSentido.SelectedIndex].Substring(0, 3) + "_" + PckLadoDaPista.Items[PckLadoDaPista.SelectedIndex].Substring(0, 1);
     }
 
     private void OnClick_To_Clear(object sender, EventArgs e)
@@ -328,6 +342,7 @@ public partial class Cadastro : ContentPage
             return;
         }
     }
+
     private void RemoverPageRelacaoElementos()
     {
         var removePage = this.Navigation.NavigationStack;
@@ -340,4 +355,5 @@ public partial class Cadastro : ContentPage
             }
         }
     }
+
 }

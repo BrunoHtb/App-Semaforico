@@ -37,7 +37,7 @@ namespace cadastroSemaforico.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Configuração PostgreSQL
-            optionsBuilder.UseNpgsql("User ID=postgres;Password=cadastro;Host=177.220.159.198;Port=5432;Database=Esteio;");
+            optionsBuilder.UseNpgsql(Constantes.CaminhoBancoPostgresSQL);
         }
     }
 }
