@@ -29,13 +29,13 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="*,4*">
-                            <CheckBox />
                             <Label
                                 Grid.Column="1">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding Rodovia}" />
                                         <Span Text="{Binding CodigoElemento}" />
+                                        <Span Text="{Binding StatusInterno}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -57,7 +57,17 @@
                 <Label Text="Código" Grid.Row="3" Grid.Column="0" TextColor="#979797" FontSize="12" />
                 <Label x:Name="LabelCodigoElemento" Grid.Row="4" Grid.Column="0" TextColor="White" FontSize="12" />
 
-                <Button Clicked="OnButtonClicked_To_CadastroEditar" Text="Edit" HorizontalOptions="Center" Grid.RowSpan="2" Grid.Column="1" WidthRequest="54" HeightRequest="54" Padding="0"  />
+                <Button  
+                    Grid.RowSpan="2" 
+                    Grid.Column="1"
+                    Clicked="OnButtonClicked_To_CadastroEditar"
+                    ImageSource="editar.png"
+                    HeightRequest="54"
+                    WidthRequest="54"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+                
+                <ImageButton   Grid.RowSpan="2" Grid.Column="1" />
                 <Label Text="" Grid.Column="1" Grid.Row="3" TextColor="#979797" FontSize="8"/>
                 <Label Text="" TextColor="White" Grid.Column="1" Grid.Row="4" FontSize="12" />
             </Grid>
