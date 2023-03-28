@@ -35,7 +35,6 @@
                                     <FormattedString>
                                         <Span Text="{Binding Rodovia}" />
                                         <Span Text="{Binding CodigoElemento}" />
-                                        <Span Text="{Binding StatusInterno}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
