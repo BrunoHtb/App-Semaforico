@@ -426,11 +426,12 @@
                         Grid.Row="16"
                         Margin="0, 35, 0, 0">
                     <Label
-                            Text="Código do Elemento"
-                            FontAttributes="Bold" />
+                        Text="Código do Elemento"
+                        FontAttributes="Bold" />
                     <Entry
-                            IsEnabled="False" 
-                            x:Name="EntryCodElemento"/>
+                        FontAttributes="Bold"
+                        IsEnabled="False" 
+                        x:Name="EntryCodElemento" />
                 </StackLayout>
 
                 <!-- LINHA 18 -->

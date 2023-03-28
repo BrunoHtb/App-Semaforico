@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using The49.Maui.BottomSheet;
 
 namespace cadastroSemaforico;
 
@@ -10,6 +11,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
         builder
 			.UseMauiApp<App>()
+			.UseBottomSheet()
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{

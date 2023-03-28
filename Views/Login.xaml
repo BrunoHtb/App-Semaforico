@@ -45,16 +45,6 @@
                         Margin="0, 15, 0, 0" />
                 </StackLayout>
 
-                <BoxView 
-                    Color="Gray"
-                    HeightRequest="1"
-                    WidthRequest="1000"
-                    CornerRadius="1"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Center"
-                    Margin="0,0,0,30"
-                    IsEnabled="false" />
-
                 <StackLayout
                     Margin="40, 20"
                     Padding="0, 30"

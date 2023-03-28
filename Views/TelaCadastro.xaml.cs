@@ -42,6 +42,7 @@ public partial class Cadastro : ContentPage
         update = true;
         _cadastroSemaforico = cadastroSemaforico;
         FillFields();
+        GetDadosLogin();
     }
 
     private async void GetDadosLogin()
@@ -74,6 +75,7 @@ public partial class Cadastro : ContentPage
         _nomeFotoDetalhe1 = _cadastroSemaforico.FotoDetalhe1;
         _nomeFotoDetalhe2 = _cadastroSemaforico.FotoDetalhe2;
         _dateRegisterBegin = _cadastroSemaforico.DataCadastro;
+        EntryAuditoria.Text = _cadastroSemaforico.Auditoria.ToString();
 
         if(_nomeFotoPanoramica != "")
         {
@@ -335,7 +337,7 @@ public partial class Cadastro : ContentPage
         if (cancelar == true)
         {
             RemoverPageRelacaoElementos();
-            await App.Current.MainPage.Navigation.PushAsync(new ListaCadastro());
+            await Navigation.PopAsync();
         }
         else
         {

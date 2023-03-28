@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="cadastroSemaforico.Views.ListaCadastroTelaInferior"
+    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+    Padding="0, 16"
+    BackgroundColor="LightGray">
+    
+    <the49:BottomSheet.Detents>
+        <the49:FullscreenDetent />
+    </the49:BottomSheet.Detents>
+    
+    <the49:BottomSheet.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        </Style>
+    </the49:BottomSheet.Resources>
+    
+    <VerticalStackLayout Spacing="16">
+
+        <HorizontalStackLayout Spacing="16" Padding="16, 0" Margin="20,0,0,0">
+            <VerticalStackLayout 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand">
+                <Label 
+                    x:Name="LabelRodovia"
+                    Text="Rodovia:     " 
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    Margin="0, 10"/>
+                <Label 
+                    x:Name="LabelKM"
+                    Text="KM:    " 
+                    FontSize="15" 
+                    FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <Button
+                Clicked="OnButtonClicked_To_CadastroEditar"
+                BackgroundColor="{StaticResource Primary}"
+                ImageSource="editar.png"
+                HeightRequest="54"
+                WidthRequest="54"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="EndAndExpand" 
+                Margin="80,0,0,0"/>
+        </HorizontalStackLayout>
+        
+        <Grid
+            HorizontalOptions="CenterAndExpand"
+            RowDefinitions="*, 40, 40"
+            ColumnDefinitions="*, *">
+            <Label 
+                x:Name="LabelCodigoElemento"
+                Text="Código: " 
+                FontAttributes="Bold"
+                Padding="16, 8" 
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"/>
+
+            <Label 
+                x:Name="LabelSentido"
+                Text="Sentido: " 
+                FontAttributes="Bold"
+                Padding="16, 8" 
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.Column="0" />
+            <Label 
+                x:Name="LabelLadoPista"
+                Text="Lado da Pista: " 
+                FontAttributes="Bold"
+                Padding="16, 8"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                Grid.Column="0"/>
+            
+            <Label
+                x:Name="LabelStatusInterno"
+                Text="Status: "
+                FontAttributes="Bold"
+                Padding="16, 8"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.Column="1"/>
+            <Label
+                x:Name="LabelAuditoria"
+                Text="Auditoria: "
+                FontAttributes="Bold"
+                Padding="16, 8"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                Grid.Column="1"/>
+        </Grid>
+
+        <BoxView
+            Color="Black"
+            HeightRequest="1"
+            WidthRequest="1000"
+            CornerRadius="1"
+            IsEnabled="false" />
+
+        <!--<Grid RowDefinitions="Auto, Auto, 30, Auto, Auto" ColumnDefinitions="*, 80" >
+
+                <Label Text="Rodovia" Grid.Row="0" Grid.Column="0" TextColor="#979797" FontSize="18" />
+                <Label x:Name="LabelRodovia" Grid.Row="1" Grid.Column="0" TextColor="White" FontSize="18" />
+
+                <Label Text="Código" Grid.Row="3" Grid.Column="0" TextColor="#979797" FontSize="12" />
+                <Label x:Name="LabelCodigoElemento" Grid.Row="4" Grid.Column="0" TextColor="White" FontSize="12" />
+
+                <Button  
+                    Grid.RowSpan="2" 
+                    Grid.Column="1"
+                    Clicked="OnButtonClicked_To_CadastroEditar"
+                    ImageSource="editar.png"
+                    HeightRequest="54"
+                    WidthRequest="54"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+
+                <ImageButton   Grid.RowSpan="2" Grid.Column="1" />
+                <Label Text="" Grid.Column="1" Grid.Row="3" TextColor="#979797" FontSize="8"/>
+                <Label Text="" TextColor="White" Grid.Column="1" Grid.Row="4" FontSize="12" />
+            </Grid>-->
+
+
+    </VerticalStackLayout>
+</the49:BottomSheet>
