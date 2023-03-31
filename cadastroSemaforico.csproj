@@ -51,7 +51,7 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <None Remove="Resources\Images\camera.svg" />
 	  <None Remove="Resources\Images\fotografia.png" />
@@ -103,6 +103,7 @@
 	    <DependentUpon>TelaCadastro.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+	
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptioncadastroSemaforicoHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 

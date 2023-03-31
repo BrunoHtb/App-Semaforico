@@ -13,7 +13,6 @@ public partial class Login : ContentPage
         InitializeComponent();
 
         VerifyDB();
-        Constantes.CriarDiretorio();
     }
 
     private async void VerifyDB()
@@ -34,30 +33,51 @@ public partial class Login : ContentPage
 
     private async void OnButtonClicked_To_Menu(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(EntryID.Text) || string.IsNullOrEmpty(EntryUsuario.Text) || string.IsNullOrEmpty(EntryAuditoria.Text))
+        try
         {
-            await DisplayAlert("ERRO!", "Por favor, preencha todos os campos.", "OK");
+            if (string.IsNullOrEmpty(EntryID.Text) || string.IsNullOrEmpty(EntryUsuario.Text) || string.IsNullOrEmpty(EntryAuditoria.Text))
+            {
+                await DisplayAlert("ERRO!", "Por favor, preencha todos os campos.", "OK");
+                return;
+            }
+
+            if (_lista.Count == 0)
+            {
+                _dadoLogin.IdDispositivo = Int32.Parse(EntryID.Text);
+                _dadoLogin.NomeUsuario = EntryUsuario.Text;
+                _dadoLogin.Auditoria = Int32.Parse(EntryAuditoria.Text);
+                await new CadastroSQLiteDB().CadastrarLoginAsync(_dadoLogin);
+            }
+            else if (
+                (EntryID.Text != _dadoLogin.IdDispositivo.ToString()) ||
+                (EntryUsuario.Text != _dadoLogin.NomeUsuario) ||
+                (EntryAuditoria.Text != _dadoLogin.Auditoria.ToString()))
+            {
+                _dadoLogin.IdDispositivo = Int32.Parse(EntryID.Text);
+                _dadoLogin.NomeUsuario = EntryUsuario.Text;
+                _dadoLogin.Auditoria = Int32.Parse(EntryAuditoria.Text);
+                await new CadastroSQLiteDB().AtualizarLoginAsync(_dadoLogin);
+            }
+
+            await Navigation.PushAsync(new Menu(), false);
+        }
+        catch(Exception ex)
+        {
+            await DisplayAlert("Erro", "Erro: " + ex, "OK");
+        }
+    }
+
+    private async void CreateDirectory()
+    {
+        var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+        if (status != PermissionStatus.Granted)
+        {
+            // Permissão negada
             return;
         }
-
-        if (_lista.Count == 0)
+        if (!Directory.Exists(Constantes.CaminhoDiretorioSave))
         {
-            _dadoLogin.IdDispositivo = Int32.Parse(EntryID.Text);
-            _dadoLogin.NomeUsuario = EntryUsuario.Text;
-            _dadoLogin.Auditoria = Int32.Parse(EntryAuditoria.Text);
-            await new CadastroSQLiteDB().CadastrarLoginAsync(_dadoLogin);
+            Directory.CreateDirectory(Constantes.CaminhoDiretorioSave);
         }
-        else if (
-            (EntryID.Text != _dadoLogin.IdDispositivo.ToString()) ||
-            (EntryUsuario.Text != _dadoLogin.NomeUsuario) ||
-            (EntryAuditoria.Text != _dadoLogin.Auditoria.ToString()))
-        {
-            _dadoLogin.IdDispositivo = Int32.Parse(EntryID.Text);
-            _dadoLogin.NomeUsuario = EntryUsuario.Text;
-            _dadoLogin.Auditoria = Int32.Parse(EntryAuditoria.Text);
-            await new CadastroSQLiteDB().AtualizarLoginAsync(_dadoLogin);
-        }
-
-        await Navigation.PushAsync(new Menu(), false);
     }
 }

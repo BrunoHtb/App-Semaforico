@@ -3,6 +3,7 @@ using cadastroSemaforico.Models;
 using Location = Microsoft.Maui.Devices.Sensors.Location;
 using CommunityToolkit.Maui.Views;
 using cadastroSemaforico.Static;
+using System;
 
 namespace cadastroSemaforico.Views;
 
@@ -181,40 +182,57 @@ public partial class Cadastro : ContentPage
 
     private async void OnClick_To_GetPhoto(object sender, EventArgs e)
     {
-        if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
+        try
         {
-            await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
-            return;
-        }
-        int ultimoDigito;
-        if (sender == BtnFotoPanoramica)
-        {
-            ultimoDigito = 1;
-        }
-        else if(sender == BtnFotoDetalhe1)
-        {
-            ultimoDigito = 2;
-        }
-        else
-        {
-            ultimoDigito = 3;
-        }
 
-        var page = new PopupFoto();
-        this.ShowPopup(page);
-        var result = await page.Show();
-        FileResult photo;
-        if (!result && page.opcao)
-        {
-            photo = await MediaPicker.Default.CapturePhotoAsync();
-        }
-        else
-        {
-            photo = await MediaPicker.Default.PickPhotoAsync();
-        }
 
-        NamePhoto_And_SaveDirectory(photo, ultimoDigito);
-        page.Close();      
+            if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
+            {
+                await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
+                return;
+            }
+            int ultimoDigito;
+            if (sender == BtnFotoPanoramica)
+            {
+                ultimoDigito = 1;
+            }
+            else if (sender == BtnFotoDetalhe1)
+            {
+                ultimoDigito = 2;
+            }
+            else
+            {
+                ultimoDigito = 3;
+            }
+
+            var page = new PopupFoto();
+            this.ShowPopup(page);
+            var result = await page.Show();
+            FileResult photo;
+
+            if (!result && page.opcao)
+            {
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    photo = await MediaPicker.Default.CapturePhotoAsync();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                photo = await MediaPicker.Default.PickPhotoAsync();
+            }
+
+            NamePhoto_And_SaveDirectory(photo, ultimoDigito);
+            page.Close();
+        }
+        catch(Exception ex)
+        {
+            await DisplayAlert("ERRO", "Erro: " + ex.Message, "OK");
+        }
     }
 
     private async void NamePhoto_And_SaveDirectory(FileResult photo, int ultimoDigito)
@@ -232,10 +250,10 @@ public partial class Cadastro : ContentPage
 
                 string localFilePath = Path.Combine(photosDir, photo.FileName);
 
-                if (!Directory.Exists(photosDir))
-                {
-                    Directory.CreateDirectory(photosDir);
-                }
+                //if (!Directory.Exists(photosDir))
+                //{
+                //    Directory.CreateDirectory(photosDir);
+                //}
                 
                 using Stream sourceStream = await photo.OpenReadAsync();
                 using FileStream localFileStream = File.OpenWrite(localFilePath);
