@@ -41,6 +41,8 @@ public partial class Login : ContentPage
                 return;
             }
 
+            CreateDirectory();
+
             if (_lista.Count == 0)
             {
                 _dadoLogin.IdDispositivo = Int32.Parse(EntryID.Text);
@@ -67,14 +69,8 @@ public partial class Login : ContentPage
         }
     }
 
-    private async void CreateDirectory()
+    private  void CreateDirectory()
     {
-        var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
-        if (status != PermissionStatus.Granted)
-        {
-            // Permissão negada
-            return;
-        }
         if (!Directory.Exists(Constantes.CaminhoDiretorioSave))
         {
             Directory.CreateDirectory(Constantes.CaminhoDiretorioSave);

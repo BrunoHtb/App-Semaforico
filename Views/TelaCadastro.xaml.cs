@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Views;
 using cadastroSemaforico.Static;
 using System;
 
+
 namespace cadastroSemaforico.Views;
 
 public partial class Cadastro : ContentPage
@@ -184,8 +185,6 @@ public partial class Cadastro : ContentPage
     {
         try
         {
-
-
             if (PckDR.SelectedIndex == -1 || string.IsNullOrEmpty(EntryRodovia.Text) || PckLadoDaPista.SelectedIndex == -1 || PckSentido.SelectedIndex == -1)
             {
                 await DisplayAlert("Alerta de campo sem preenchimento", "Campo obrigatório não preenchido", "OK");
@@ -208,22 +207,15 @@ public partial class Cadastro : ContentPage
             var page = new PopupFoto();
             this.ShowPopup(page);
             var result = await page.Show();
-            FileResult photo;
+            Xamarin.Essentials.FileResult photo;
 
             if (!result && page.opcao)
             {
-                if (MediaPicker.Default.IsCaptureSupported)
-                {
-                    photo = await MediaPicker.Default.CapturePhotoAsync();
-                }
-                else
-                {
-                    return;
-                }
+                photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
             }
             else
             {
-                photo = await MediaPicker.Default.PickPhotoAsync();
+                photo = await Xamarin.Essentials.MediaPicker.PickPhotoAsync();
             }
 
             NamePhoto_And_SaveDirectory(photo, ultimoDigito);
@@ -235,7 +227,7 @@ public partial class Cadastro : ContentPage
         }
     }
 
-    private async void NamePhoto_And_SaveDirectory(FileResult photo, int ultimoDigito)
+    private async void NamePhoto_And_SaveDirectory(Xamarin.Essentials.FileResult photo, int ultimoDigito)
     {
         try
         {
@@ -249,11 +241,6 @@ public partial class Cadastro : ContentPage
                 string photosDir = Constantes.CaminhoDiretorioSave;
 
                 string localFilePath = Path.Combine(photosDir, photo.FileName);
-
-                //if (!Directory.Exists(photosDir))
-                //{
-                //    Directory.CreateDirectory(photosDir);
-                //}
                 
                 using Stream sourceStream = await photo.OpenReadAsync();
                 using FileStream localFileStream = File.OpenWrite(localFilePath);

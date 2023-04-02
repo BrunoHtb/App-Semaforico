@@ -14,8 +14,8 @@ namespace cadastroSemaforico.Database
     {
         public const string NomeBanco = "AppSemaforica.db3";
         public const string CaminhoBancoPostgresSQL = "User ID=postgres;Password=cadastro;Host=177.220.159.198;Port=5432;Database=Esteio;";
-        public const string CaminhoDiretorioSave = "/storage/emulated/0/Android/data/com.companyname.cadastrosemaforico/cadastroSemaforico/";
-
+        public const string CaminhoDiretorioSave = "/storage/emulated/0/Download/cadastroSemaforico/";
+         
         public static string CaminhoBanco =>
             Path.Combine(FileSystem.AppDataDirectory, NomeBanco);
     }
