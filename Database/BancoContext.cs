@@ -27,7 +27,7 @@ namespace cadastroSemaforico.Database
 
     public class BancoContextPostgreSQL : DbContext
     {
-        public DbSet<SemaforicoPostgreSQLDB> tb_ss { get; set; }
+        public DbSet<SemaforicoPostgreSQLDB> tb_sistemasemaforico { get; set; }
 
         public BancoContextPostgreSQL()
         {

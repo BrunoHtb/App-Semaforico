@@ -19,7 +19,7 @@ namespace cadastroSemaforico.Database
         }//Retorna a lista toda
         public async Task<List<SemaforicoPostgreSQLDB>> PesquisarAsync()
         {
-            return await Banco.tb_ss.ToListAsync();
+            return await Banco.tb_sistemasemaforico.ToListAsync();
         }
 
         //Cadastra elemento novo
@@ -27,7 +27,7 @@ namespace cadastroSemaforico.Database
         {
             try
             {
-                Banco.tb_ss.AddRange(listaCadastroSemaforico);
+                Banco.tb_sistemasemaforico.AddRange(listaCadastroSemaforico);
                 int linhas = Banco.SaveChanges();
                 return (linhas > 0) ? true : false;
             }
@@ -42,7 +42,7 @@ namespace cadastroSemaforico.Database
         //Edita elemento novo
         public async Task<bool> AtualizarAsync(SemaforicoPostgreSQLDB cadastroSemaforico)
         {
-            Banco.tb_ss.Update(cadastroSemaforico);
+            Banco.tb_sistemasemaforico.Update(cadastroSemaforico);
             int linhas = await Banco.SaveChangesAsync();
             return (linhas > 0) ? true : false;
         }

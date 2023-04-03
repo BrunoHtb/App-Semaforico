@@ -393,7 +393,6 @@
                         BackgroundColor="#808080"
                         Margin="0,0,10,0"
                         Grid.Column="0"/>
-
                     <Button
                         Clicked="OnClick_To_GetPhoto"
                         x:Name="BtnFotoDetalhe1"

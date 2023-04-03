@@ -9,7 +9,7 @@
             HeightRequest="160">
             <Grid
                 ColumnDefinitions="*, *, *"
-                RowDefinitions="*, *" >
+                RowDefinitions="*, *, *" >
 
                 <Label  
                     x:Name="LabelTotalElementos"
@@ -18,8 +18,8 @@
                     FontAttributes="Bold"
                     HorizontalTextAlignment="Start"
                     VerticalTextAlignment="End"
-                    Grid.Row="1"
-                    Grid.Column="0" />
+                    Grid.Row="2"
+                    Grid.Column="2" />
 
                 <Button 
                     Clicked="OnButtonClicked_To_CadastroNovo"   
@@ -34,6 +34,39 @@
                     Grid.RowSpan="2"/>
             </Grid>
         </Frame>
+
+        <Grid
+            ColumnDefinitions="0.3*, *, 0.3*"
+            Padding="10"
+            BackgroundColor="Black">
+            <Label 
+                Text="Rodovia"
+                Grid.Column="0" 
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="White"
+                FontSize="15" />
+            <Label 
+                Text="Codigo Elemento"
+                Grid.Column="1"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="White"
+                FontSize="15"/>
+            <Label 
+                Text="Status"
+                Grid.Column="2"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="White"
+                FontSize="15"/>
+        </Grid>
+        
+        <BoxView 
+            Grid.Row="1" 
+            HeightRequest="1" 
+            BackgroundColor="Gray"
+            WidthRequest="10000"/>
         
         <ScrollView>
             <CollectionView 
@@ -42,25 +75,51 @@
                 SelectionChanged="Selection_Item_Changed">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,4*">
+                        <Grid
+                            RowDefinitions="*,2"
+                            ColumnDefinitions="0.3*, *, 0.3*">
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                HorizontalTextAlignment="Center"
+                                Margin="10, 20">
+                                <Label.FormattedText>
+                                    <FormattedString >
+                                        <Span Text="{Binding Rodovia}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                             <Label
                                 Grid.Column="1"
+                                Grid.Row="0"
+                                HorizontalTextAlignment="Center"
                                 Margin="0, 20">
                                 <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding Rodovia}" />
+                                    <FormattedString >
                                         <Span Text="{Binding CodigoElemento}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
+                            <Label
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                HorizontalTextAlignment="Center"
+                                Margin="0, 20">
+                                <Label.FormattedText>
+                                    <FormattedString >
+                                        <Span Text="{Binding StatusInterno}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <BoxView 
+                                Grid.Row="1" 
+                                HeightRequest="1" 
+                                BackgroundColor="Gray"
+                                WidthRequest="10000"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-
-
-        
-  
     </VerticalStackLayout>
 </ContentPage>

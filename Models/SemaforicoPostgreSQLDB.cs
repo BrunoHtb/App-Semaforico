@@ -38,7 +38,6 @@ namespace cadastroSemaforico.Models
         public string observacao { get; set; }
         public string usuariologado { get; set; }
         public string status_interno { get; set; }
-        public string empresa { get; set; }
         public string alteracao_dia { get; set; }
         public string observacao_sistema { get; set; }
         public string data_inclusao_novo { get; set; }

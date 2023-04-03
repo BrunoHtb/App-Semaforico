@@ -56,13 +56,14 @@ public partial class ListaCadastro : ContentPage
             if (e.CurrentSelection.FirstOrDefault() is CadastroSemaforico selectedItem)
             {
                 var bottomSheet = new ListaCadastroTelaInferior(selectedItem, this);
-               
+
                 bottomSheet.IsModal = true;
                 bottomSheet.ShowHandle = true;
                 bottomSheet.Detents = new DetentsCollection()
                 {
                     new FullscreenDetent(),
                     new ContentDetent(),
+                    new AnchorDetent { Anchor = bottomSheet.Divider },
                 };
 
 

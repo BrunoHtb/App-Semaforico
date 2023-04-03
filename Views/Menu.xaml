@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cadastroSemaforico.Views.Menu"
-             Title="Menu">
+             NavigationPage.HasBackButton="False">
     <VerticalStackLayout>
         <ScrollView>
             <StackLayout>
@@ -10,53 +10,52 @@
                     <Image 
                         Source="panel.svg" 
                         Margin="20" 
-                        HorizontalOptions="Start" 
+                        HorizontalOptions="Center"
+                        WidthRequest="300"        
                         Grid.Column="0" 
                         Grid.Row="0"/>
 
                 </Grid>
-                <Label Margin="30"></Label>
-                <Button                    
-                    Clicked="Clicked_To_ListaCadastro"
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="semaforo.svg"
-                    BackgroundColor="#00FF00"
-                    TextColor="Black"
-                    LineBreakMode="WordWrap"
-                    Text="CADASTRO DE SEMAFÓRICO"
-                    FontSize="20"
-                    Margin="20"
-                    />
+                <StackLayout
+                    Margin="30">
+                    <Button                    
+                        Clicked="Clicked_To_ListaCadastro"
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="semaforo.svg"
+                        BackgroundColor="#00FF00"
+                        TextColor="Black"
+                        LineBreakMode="WordWrap"
+                        Text="CADASTRO DE SEMAFÓRICO"
+                        FontSize="20"
+                        Margin="20" />
  
-                <Button 
-                    Clicked="Clicked_To_Login"
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="engrenagem.svg"
-                    BackgroundColor="#FFFF00"                      
-                    Margin="20"
-                    TextColor="Black"
-                    LineBreakMode="WordWrap"
-                    FontSize="20"
-                    Text="CONFIGURAR UM DISPOSITIVO"
-                    />
+                    <Button 
+                        Clicked="Clicked_To_Login"
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="engrenagem.svg"
+                        BackgroundColor="#FFFF00"                      
+                        Margin="20"
+                        TextColor="Black"
+                        LineBreakMode="WordWrap"
+                        FontSize="20"
+                        Text="CONFIGURAR UM DISPOSITIVO" />
 
-                <Button 
-                    Clicked="Clicked_To_Exportacao"
-                    WidthRequest="300"
-                    HeightRequest="100"
-                    FontAttributes="Bold"
-                    ImageSource="upload.svg"
-                    BackgroundColor="#FF2020"
-                    Margin="20"
-                    FontSize="20"
-                    TextColor="Black"
-                    Text="ENVIAR DADOS"
-                    />                
-                
+                    <Button 
+                        Clicked="Clicked_To_Exportacao"
+                        WidthRequest="300"
+                        HeightRequest="100"
+                        FontAttributes="Bold"
+                        ImageSource="upload.svg"
+                        BackgroundColor="#FF2020"
+                        Margin="20"
+                        FontSize="20"
+                        TextColor="Black"
+                        Text="ENVIAR DADOS" />
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </VerticalStackLayout>

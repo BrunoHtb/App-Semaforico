@@ -63,7 +63,6 @@ public partial class Exportacao : ContentPage
             _cadastroPostgres.observacao = cadastro.Observacao;
             _cadastroPostgres.usuariologado = cadastro.NomeUsuario;
             _cadastroPostgres.status_interno = cadastro.StatusInterno;
-            _cadastroPostgres.empresa = "";
             _cadastroPostgres.alteracao_dia = "";
             _cadastroPostgres.observacao_sistema = "";
             _cadastroPostgres.data_inclusao_novo = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");

@@ -126,7 +126,6 @@ public partial class Cadastro : ContentPage
             _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
             _cadastroSemaforico.CodigoElemento = GetCode_Register();
             _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
-            _cadastroSemaforico.StatusInterno = "NOVO";
 
             //Salvando Informações da tela de Login
             _cadastroSemaforico.IdDispositivo = _lista.FirstOrDefault().IdDispositivo;
@@ -136,6 +135,8 @@ public partial class Cadastro : ContentPage
             //TODO - Salvar a Tarefa no Banco
             if (update)
             {
+                _cadastroSemaforico.StatusInterno = "EDITADO";
+
                 await new CadastroSQLiteDB().AtualizarAsync(_cadastroSemaforico);
             }
             else
@@ -143,6 +144,7 @@ public partial class Cadastro : ContentPage
                 //Salvando Rodovia e Regional na classe estatica
                 VariaveisEstaticas.Regional = _cadastroSemaforico.Regional;
                 VariaveisEstaticas.Rodovia = _cadastroSemaforico.Rodovia;
+                _cadastroSemaforico.StatusInterno = "NOVO";
 
                 await new CadastroSQLiteDB().CadastrarAsync(_cadastroSemaforico);
             }
