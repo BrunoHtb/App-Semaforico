@@ -1,5 +1,6 @@
 using cadastroSemaforico.Database;
 using cadastroSemaforico.Models;
+using Microsoft.Maui.Controls;
 using The49.Maui.BottomSheet;
 
 namespace cadastroSemaforico.Views;
@@ -65,8 +66,6 @@ public partial class ListaCadastro : ContentPage
                     new ContentDetent(),
                     new AnchorDetent { Anchor = bottomSheet.Divider },
                 };
-
-
                 bottomSheet.Show(Window);
 
                 _cadastroSemaforico = selectedItem;
@@ -90,4 +89,21 @@ public partial class ListaCadastro : ContentPage
         }
     }
 
+    private async void Sort_KM(object sender, EventArgs e)
+    {
+        if(CVListaCadastro.ItemsSource != null)
+        {
+            CVListaCadastro.ItemsSource = null;
+            CVListaCadastro.ItemsSource = await new CadastroSQLiteDB().PesquisarKMAsync();
+        }
+    }
+
+    private async void Sort_Status(object sender, EventArgs e)
+    {
+        if (CVListaCadastro.ItemsSource != null)
+        {
+            CVListaCadastro.ItemsSource = null;
+            CVListaCadastro.ItemsSource = await new CadastroSQLiteDB().PesquisarStatusAsync();
+        }
+    }
 }

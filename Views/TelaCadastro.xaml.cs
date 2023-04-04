@@ -124,7 +124,7 @@ public partial class Cadastro : ContentPage
             _cadastroSemaforico.FotoPanoramica = _nomeFotoPanoramica;
             _cadastroSemaforico.FotoDetalhe1 = _nomeFotoDetalhe1;
             _cadastroSemaforico.FotoDetalhe2 = _nomeFotoDetalhe2;
-            _cadastroSemaforico.CodigoElemento = GetCode_Register();
+            _cadastroSemaforico.CodigoElemento = "DR" + GetCode_Register();
             _cadastroSemaforico.DataCadastro = _dateRegisterBegin;
 
             //Salvando Informações da tela de Login
@@ -365,4 +365,34 @@ public partial class Cadastro : ContentPage
         }
     }
 
+    /* 
+     * ESSAS DUAS FUNÇÕES SÃO PARA CONTORNAR UM BUG DO .NET MAUI, QUANDO SE USA UPPERCASE OU MASK NO ENTRY
+     * O TEXTO VAI SE EMBARALHANDO, QUANDO FOR CORRIGIDO O BUG, PODE TIRAR ESSAS FUNÇÕES
+     */
+    private void EntryRodovia_Changed(object sender, TextChangedEventArgs e)
+    {
+        {
+            Entry entry = sender as Entry;
+            #if ANDROID
+            if (!string.IsNullOrEmpty(e.NewTextValue))
+            {
+                //Access the CursorPosition via the Entry's x:Name 
+                this.EntryRodovia.CursorPosition = entry.Text.Length + 1;
+            }
+            #endif
+        }
+    }
+    private void EntryKM_Changed(object sender, TextChangedEventArgs e)
+    {
+        {
+            Entry entry = sender as Entry;
+            #if ANDROID
+            if (!string.IsNullOrEmpty(e.NewTextValue))
+            {
+                //Access the CursorPosition via the Entry's x:Name 
+                this.EntryKM.CursorPosition = entry.Text.Length + 1;
+            }
+            #endif
+        }
+    }
 }

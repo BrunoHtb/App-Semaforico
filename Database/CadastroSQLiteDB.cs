@@ -23,7 +23,14 @@ namespace cadastroSemaforico.Database
         {
             return await Banco.CadastrosSemaforico.ToListAsync();
         }
-
+        public async Task<List<CadastroSemaforico>> PesquisarKMAsync()
+        {
+            return await Banco.CadastrosSemaforico.OrderBy(e => e.KM).ToListAsync();
+        }
+        public async Task<List<CadastroSemaforico>> PesquisarStatusAsync()
+        {
+            return await Banco.CadastrosSemaforico.OrderBy(e => e.StatusInterno).ToListAsync();
+        }
         //Cadastra elemento novo
         public async Task<bool> CadastrarAsync(CadastroSemaforico cadastroSemaforico)
         {

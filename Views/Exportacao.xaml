@@ -10,7 +10,7 @@
         <Grid
             ColumnDefinitions="*, 60"
             RowDefinitions="*, *"
-            BackgroundColor="#808080"
+            BackgroundColor="Black"
             HeightRequest="150" 
             Padding="20,0,0,20">
             <Label

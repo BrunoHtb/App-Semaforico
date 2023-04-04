@@ -50,6 +50,8 @@
                     <Entry
                         x:Name="EntryRodovia"
                         Placeholder="Rodovia" 
+                        TextTransform="Uppercase"
+                        TextChanged="EntryRodovia_Changed"
                         Grid.Row="1"
                         Grid.Column="0"
                         ClearButtonVisibility="WhileEditing" />
@@ -67,14 +69,14 @@
                         Grid.Row="1"
                         Grid.Column="1" >
                         <Picker.Items>
-                            <x:String>DR01</x:String>
-                            <x:String>DR02</x:String>
-                            <x:String>DR03</x:String>
-                            <x:String>DR04</x:String>
-                            <x:String>DR05</x:String>
-                            <x:String>DR06</x:String>
-                            <x:String>DR10</x:String>
-                            <x:String>DR13</x:String>
+                            <x:String>01</x:String>
+                            <x:String>02</x:String>
+                            <x:String>03</x:String>
+                            <x:String>04</x:String>
+                            <x:String>05</x:String>
+                            <x:String>06</x:String>
+                            <x:String>10</x:String>
+                            <x:String>13</x:String>
                         </Picker.Items>
                     </Picker>
                 </Grid>
@@ -166,6 +168,7 @@
                         x:Name="EntryKM"
                         Placeholder="KM"
                         Keyboard="Numeric"
+                        TextChanged="EntryKM_Changed"
                         Grid.Row="1"
                         Grid.Column="0"
                         ClearButtonVisibility="WhileEditing" >

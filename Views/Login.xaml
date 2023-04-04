@@ -39,6 +39,8 @@
                     <Entry 
                         x:Name="EntryUsuario"
                         Placeholder="Informe nome do usuário" 
+                        TextTransform="Uppercase"
+                        TextChanged="Entry_Changed"
                         FontSize="15"
                         FontAttributes="Bold"
                         HorizontalTextAlignment="Center"
@@ -47,7 +49,7 @@
                 </StackLayout>
 
                 <StackLayout
-                    Margin="40, 20"
+                    Margin="40,0"
                     Padding="0, 30"
                     HorizontalOptions="FillAndExpand">
                     <Label
@@ -66,9 +68,9 @@
                     <Button
                         WidthRequest="300"
                         HeightRequest="100"
-                        BackgroundColor="#00FF00"
+                        BackgroundColor="#228b22"
                         Margin="20"
-                        TextColor="Black"
+                        TextColor="White"
                         FontAttributes="Bold"
                         Clicked="OnButtonClicked_To_Menu"
                         Text="ENTRAR"

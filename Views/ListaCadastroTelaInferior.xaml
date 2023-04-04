@@ -103,7 +103,7 @@
         </Grid>
 
         <BoxView
-            Style="{StaticResource Divider}" 
+            Style="{DynamicResource Divider}" 
             x:Name="BoxviewDivisor"
             Color="Black"
             HeightRequest="1"
@@ -135,7 +135,7 @@
             BackgroundColor="Black"
             Margin="3"
             Padding="0,5"
-            HeightRequest="350"
+            HeightRequest="300"
             HorizontalOptions="CenterAndExpand"
             WidthRequest="350">
 
@@ -144,7 +144,7 @@
                 Margin="1"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
-                HeightRequest="300"
+                HeightRequest="250"
                 WidthRequest="300" />
         </Border>
 

@@ -10,13 +10,20 @@
             <Grid
                 ColumnDefinitions="*, *, *"
                 RowDefinitions="*, *, *" >
-
+                
+                <Image 
+                    Source="panel.svg" 
+                    Margin="20" 
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="300"        
+                    Grid.ColumnSpan="2" 
+                    Grid.RowSpan="3"/>
                 <Label  
                     x:Name="LabelTotalElementos"
                     Text="Total: "
                     FontSize="20"
                     FontAttributes="Bold"
-                    HorizontalTextAlignment="Start"
+                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="End"
                     Grid.Row="2"
                     Grid.Column="2" />
@@ -67,8 +74,9 @@
             HeightRequest="1" 
             BackgroundColor="Gray"
             WidthRequest="10000"/>
-        
-        <ScrollView>
+
+        <ScrollView
+            HeightRequest="500">
             <CollectionView 
                 x:Name="CVListaCadastro" 
                 SelectionMode="Single"
@@ -121,5 +129,36 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
+        
+        <BoxView 
+            HeightRequest="1" 
+            BackgroundColor="#808080"
+            WidthRequest="10000"/>
+        
+        <HorizontalStackLayout
+            BackgroundColor="Black"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Padding="20">
+            <Button
+                Clicked="Sort_KM"
+                Text="Ordenar KM"
+                TextColor="Black"
+                FontSize="16"
+                FontAttributes="Bold"
+                BackgroundColor="#ffd700"
+                HorizontalOptions="Center"
+                Margin="20,0,25,0"/>
+            <Button
+                Clicked="Sort_Status"
+                Text="Ordenar STATUS"
+                TextColor="White"
+                FontSize="16"
+                FontAttributes="Bold"
+                BackgroundColor="#228b22"
+                HorizontalOptions="Center" 
+                Margin="20,0,0,0"/>
+        </HorizontalStackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>

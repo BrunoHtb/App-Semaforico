@@ -39,7 +39,7 @@ public partial class Exportacao : ContentPage
         {
             _cadastroPostgres = new SemaforicoPostgreSQLDB();
 
-            _cadastroPostgres.regional_der = cadastro.Regional;
+            _cadastroPostgres.regional_der = "DR" + cadastro.Regional;
             _cadastroPostgres.rodovia = cadastro.Rodovia;
             _cadastroPostgres.codigo = cadastro.CodigoElemento;
             _cadastroPostgres.data_levantamento = cadastro.DataCadastro;

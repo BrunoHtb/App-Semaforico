@@ -24,10 +24,10 @@
                         HeightRequest="100"
                         FontAttributes="Bold"
                         ImageSource="semaforo.svg"
-                        BackgroundColor="#00FF00"
-                        TextColor="Black"
+                        BackgroundColor="#228b22"
+                        TextColor="White"
                         LineBreakMode="WordWrap"
-                        Text="CADASTRO DE SEMAFÓRICO"
+                        Text="CADASTRO SEMAFÓRICO"
                         FontSize="20"
                         Margin="20" />
  
@@ -42,7 +42,7 @@
                         TextColor="Black"
                         LineBreakMode="WordWrap"
                         FontSize="20"
-                        Text="CONFIGURAR UM DISPOSITIVO" />
+                        Text="CONFIGURAR DISPOSITIVO" />
 
                     <Button 
                         Clicked="Clicked_To_Exportacao"
@@ -50,7 +50,7 @@
                         HeightRequest="100"
                         FontAttributes="Bold"
                         ImageSource="upload.svg"
-                        BackgroundColor="#FF2020"
+                        BackgroundColor="#ff0000"
                         Margin="20"
                         FontSize="20"
                         TextColor="Black"

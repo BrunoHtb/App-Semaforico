@@ -76,4 +76,18 @@ public partial class Login : ContentPage
             Directory.CreateDirectory(Constantes.CaminhoDiretorioSave);
         }
     }
+
+    private void Entry_Changed(object sender, TextChangedEventArgs e)
+    {
+        {
+            Entry entry = sender as Entry;
+            #if ANDROID
+            if (!string.IsNullOrEmpty(e.NewTextValue))
+            {
+                //Access the CursorPosition via the Entry's x:Name 
+                this.EntryUsuario.CursorPosition = entry.Text.Length + 1;
+            }
+            #endif
+        }
+    }
 }
