@@ -6,7 +6,9 @@
     <VerticalStackLayout>
         <Frame
             BackgroundColor="{StaticResource Primary}"
-            HeightRequest="160">
+            BorderColor="{StaticResource Primary}"
+            HeightRequest="160"
+            HasShadow="True">
             <Grid
                 ColumnDefinitions="*, *, *"
                 RowDefinitions="*, *, *" >
@@ -41,7 +43,6 @@
                     Grid.RowSpan="2"/>
             </Grid>
         </Frame>
-
         <Grid
             ColumnDefinitions="0.3*, *, 0.3*"
             Padding="10"

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="cadastroSemaforico.Views.ListaCadastroTelaInferior"
     xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
-    Padding="0, 16"
     BackgroundColor="LightGray">
     
     <the49:BottomSheet.Detents>
@@ -19,9 +18,9 @@
         </Style>
     </the49:BottomSheet.Resources>
     
-    <VerticalStackLayout Spacing="16">
+    <VerticalStackLayout >
 
-        <HorizontalStackLayout Spacing="16" Padding="16, 0" Margin="20,0,0,0">
+        <HorizontalStackLayout BackgroundColor="Black" Spacing="16" Padding="16, 0" >
             <VerticalStackLayout 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand">
@@ -30,12 +29,15 @@
                     Text="Rodovia:     " 
                     FontSize="18"
                     FontAttributes="Bold"
-                    Margin="0, 10"/>
+                    TextColor="White"
+                    Margin="20, 10" />
                 <Label 
                     x:Name="LabelKM"
                     Text="KM:    " 
                     FontSize="15" 
-                    FontAttributes="Bold"/>
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    Margin="20, 10" />
             </VerticalStackLayout>
 
             <Button
@@ -46,7 +48,7 @@
                 WidthRequest="54"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="EndAndExpand" 
-                Margin="80,0,0,0"/>
+                Margin="80,0,0,20"/>
         </HorizontalStackLayout>
         
         <Grid

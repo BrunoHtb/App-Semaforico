@@ -187,4 +187,12 @@
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptioncadastroSemaforicoHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>918273</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>cadastroSemaforicoMAUI</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>918273</AndroidSigningKeyPass>
+	</PropertyGroup>
+	
 </Project>
