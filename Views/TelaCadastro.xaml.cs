@@ -214,6 +214,10 @@ public partial class Cadastro : ContentPage
             if (!result && page.opcao)
             {
                 photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
+                if(photo != null)
+                {
+                    page.Close();
+                }
             }
             else
             {
@@ -295,7 +299,7 @@ public partial class Cadastro : ContentPage
         else if (ultimoDigito == 2)
         {
             selectButton = BtnFotoDetalhe1;
-            selectButton = BtnFotoDetalhe1;
+            _nomeFotoDetalhe1 = "";
         }
         else
         {
