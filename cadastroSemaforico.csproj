@@ -149,10 +149,12 @@
 	
 	<ItemGroup>
 	  <None Remove="Resources\Images\camera.svg" />
+	  <None Remove="Resources\Images\cancel.png" />
+	  <None Remove="Resources\Images\disk.png" />
+	  <None Remove="Resources\Images\eraser.png" />
 	  <None Remove="Resources\Images\fotografia.png" />
 	  <None Remove="Resources\Images\galeria.png" />
 	  <None Remove="Resources\Images\panel.svg" />
-	  <None Remove="Resources\Images\semaforomenu64.png" />
 	  <None Remove="Resources\Images\separador_pontilhado.svg" />
 	</ItemGroup>
 

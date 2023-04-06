@@ -18,7 +18,7 @@ public partial class Cadastro : ContentPage
     private string _nomeFotoPanoramica = "";
     private string _nomeFotoDetalhe1 = "";
     private string _nomeFotoDetalhe2 = "";
-    private string _dateRegisterBegin;
+    private string _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmssfff");
 
     public Cadastro()
 	{
@@ -26,7 +26,6 @@ public partial class Cadastro : ContentPage
 
         update = false;
         _cadastroSemaforico = new CadastroSemaforico();
-        _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmss");
 
         if (!string.IsNullOrEmpty(VariaveisEstaticas.Regional) && !string.IsNullOrEmpty(VariaveisEstaticas.Rodovia))
         {
@@ -213,10 +212,21 @@ public partial class Cadastro : ContentPage
 
             if (!result && page.opcao)
             {
-                photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
-                if(photo != null)
+                // Verifica se a permissão de câmera já foi concedida
+                var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+                if (status != PermissionStatus.Granted)
                 {
-                    page.Close();
+                    // Se a permissão não foi concedida, solicita a permissão
+                    status = await Permissions.RequestAsync<Permissions.Camera>();
+                }
+                if (status == PermissionStatus.Granted)
+                {
+                    // A permissão foi concedida, chama o método CapturePhotoAsync() para tirar a foto
+                    photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
+                }
+                else
+                {
+                    return;
                 }
             }
             else

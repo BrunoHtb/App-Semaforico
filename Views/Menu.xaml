@@ -51,9 +51,9 @@
                         FontAttributes="Bold"
                         ImageSource="upload.svg"
                         BackgroundColor="#ff0000"
+                        TextColor="White"
                         Margin="20"
                         FontSize="20"
-                        TextColor="Black"
                         Text="ENVIAR DADOS" />
                 </StackLayout>
             </StackLayout>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace cadastroSemaforico.Database
 {
+    //Configuração do Entity Framework para se conectar ao SQLite
     public class BancoContextSQLite : DbContext
     {
         public DbSet<CadastroSemaforico> CadastrosSemaforico { get; set; }
@@ -25,6 +26,7 @@ namespace cadastroSemaforico.Database
         }
     }
 
+    //Configuração do Entity Framework para se conectar ao PostresSQL
     public class BancoContextPostgreSQL : DbContext
     {
         public DbSet<SemaforicoPostgreSQLDB> tb_sistemasemaforico { get; set; }

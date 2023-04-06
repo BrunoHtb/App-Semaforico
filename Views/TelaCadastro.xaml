@@ -446,6 +446,7 @@
                     <Button
                         Clicked="OnClick_To_Save"
                         Text="Salvar"
+                        ImageSource="disk.png"
                         FontAttributes="Bold"
                         Grid.Column="0"
                         BackgroundColor="#228b22"
@@ -455,6 +456,7 @@
                     <Button
                         Clicked="OnClick_To_Clear"
                         Text="Limpar"
+                        ImageSource="eraser.png"
                         FontAttributes="Bold"
                         Grid.Column="1"
                         BackgroundColor="#0000FF"
@@ -464,6 +466,7 @@
                     <Button
                         Clicked="OnClick_To_Cancel"
                         Text="Cancelar"
+                        ImageSource="cancel.png"
                         FontAttributes="Bold" 
                         Grid.Column="2"
                         BackgroundColor="#FF0000"
