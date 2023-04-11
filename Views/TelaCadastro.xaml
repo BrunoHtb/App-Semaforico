@@ -20,6 +20,7 @@
                 TextTransform="Uppercase" />
             <Entry
                 x:Name="EntryAuditoria"
+                IsEnabled="False"
                 FontAttributes="Bold"
                 FontSize="18"
                 TextColor="#FFF"
@@ -193,7 +194,7 @@
                         <Picker.Items>
                             <x:String>Veículos</x:String>
                             <x:String>Pedestres</x:String>
-                            <x:String>Veículos/Pedestes</x:String>
+                            <x:String>Veículos/Pedestres</x:String>
                         </Picker.Items>
                     </Picker>
                 </Grid>

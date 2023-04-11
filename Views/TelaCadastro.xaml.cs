@@ -18,7 +18,7 @@ public partial class Cadastro : ContentPage
     private string _nomeFotoPanoramica = "";
     private string _nomeFotoDetalhe1 = "";
     private string _nomeFotoDetalhe2 = "";
-    private string _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmssfff");
+    private string _dateRegisterBegin;
 
     public Cadastro()
 	{
@@ -50,6 +50,7 @@ public partial class Cadastro : ContentPage
     {
         _lista = await new CadastroSQLiteDB().PesquisarLoginAsync();
         EntryAuditoria.Text = _lista.FirstOrDefault().Auditoria.ToString();
+        _dateRegisterBegin = DateTime.Now.ToString("dd-MM-yyyy_HHmmssfff");
     }
 
     private void FillFields()
@@ -305,20 +306,22 @@ public partial class Cadastro : ContentPage
         {
             selectButton = BtnFotoPanoramica;
             _nomeFotoPanoramica = "";
+            selectButton.Text = "Foto 1";
         }
         else if (ultimoDigito == 2)
         {
             selectButton = BtnFotoDetalhe1;
             _nomeFotoDetalhe1 = "";
+            selectButton.Text = "Foto 2";
         }
         else
         {
             selectButton = BtnFotoDetalhe2;
             _nomeFotoDetalhe2 = "";
+            selectButton.Text = "Foto 3";
         }
 
         selectButton.BackgroundColor = Color.FromRgb(128, 128, 128);
-        selectButton.TextColor = Color.FromRgb(255, 255, 255);
     }
 
     private string GetCode_Register()
@@ -409,4 +412,5 @@ public partial class Cadastro : ContentPage
             #endif
         }
     }
+
 }
